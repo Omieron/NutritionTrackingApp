@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">NutritionTrackingApp</string>
+    <string name="app_name">Project</string>
+    <string name="meal_search_text">Search meals...</string>
+    <string name="add_meal_text">Add Meal</string>
+    <string name="back_button_text">Back</string>
+    <string name="suggested_recipes_text">Suggested Recipes :)</string>
+    <string name="breakfast_text">Breakfast</string>
+    <string name="lunch_text">Lunch</string>
+    <string name="dinner_text">Dinner</string>
+    <string name="snack_text">Snack</string>
+    <string name="goal_text">Caloric Goal</string>
+    <string name="exercises_text">Exercises</string>
+    <string name="add_exercise_text">Add Exercise</string>
+    <string name="daily_stats_text">Daily Stats</string>
+    <string name="water_intake_text">Water Intake</string>
 </resources>

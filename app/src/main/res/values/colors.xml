@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="Soft_Eggshell_White">#F0EAD2</color>
+    <color name="Pale_Sage_Green">#DDE5B6</color>
+    <color name="Muted_Olive_Green">#ADC178</color>
+    <color name="Warm_Taupe_Brown">#A98467</color>
+    <color name="Deep_Mocha_Brown">#6C584C</color>
 </resources>
