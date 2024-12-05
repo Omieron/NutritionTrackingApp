@@ -7,4 +7,8 @@
     <color name="Muted_Olive_Green">#ADC178</color>
     <color name="Warm_Taupe_Brown">#A98467</color>
     <color name="Deep_Mocha_Brown">#6C584C</color>
+
+    <color name="Pastel_Cream">#C2B385</color>
+    <color name="Pastel_Green">#7FA967</color>
+    <color name="Pastel_Blue">#678BAD</color>
 </resources>

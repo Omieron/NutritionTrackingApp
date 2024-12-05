@@ -19,4 +19,7 @@
     <string name="person_height_hint">Height</string>
     <string name="person_caloric_hint">Calorie Goal</string>
     <string name="person_protein_hint">Protein Goal</string>
+    <string name="macro_carb">Carbohydrate</string>
+    <string name="macro_pro">Protein</string>
+    <string name="macro_fat">Fat</string>
 </resources>
