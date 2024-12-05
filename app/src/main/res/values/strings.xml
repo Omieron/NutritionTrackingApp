@@ -13,4 +13,10 @@
     <string name="add_exercise_text">Add Exercise</string>
     <string name="daily_stats_text">Daily Stats</string>
     <string name="water_intake_text">Water Intake</string>
+    <string name="person_name_hint">Name</string>
+    <string name="person_age_hint">Age</string>
+    <string name="person_weight_hint">Weight></string>
+    <string name="person_height_hint">Height</string>
+    <string name="person_caloric_hint">Calorie Goal</string>
+    <string name="person_protein_hint">Protein Goal</string>
 </resources>
