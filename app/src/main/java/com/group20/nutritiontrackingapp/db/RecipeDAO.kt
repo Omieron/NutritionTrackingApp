@@ -1,4 +1,4 @@
-package com.sarazebardast.project.db
+package com.group20.nutritiontrackingapp.db
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.sarazebardast.project.util.Constants
+import com.group20.nutritiontrackingapp.util.Constants
 
 @Dao
 interface RecipeDAO {
