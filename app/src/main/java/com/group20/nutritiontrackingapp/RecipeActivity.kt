@@ -1,13 +1,13 @@
-package com.sarazebardast.project
+package com.group20.nutritiontrackingapp
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
-import com.sarazebardast.project.databinding.ActivityRecipeBinding
-import com.sarazebardast.project.db.AppDatabase
-import com.sarazebardast.project.db.Recipe
-import com.sarazebardast.project.util.Constants
+import com.group20.nutritiontrackingapp.databinding.ActivityRecipeBinding
+import com.group20.nutritiontrackingapp.db.AppDatabase
+import com.group20.nutritiontrackingapp.db.Recipe
+import com.group20.nutritiontrackingapp.util.Constants
 
 class RecipeActivity : AppCompatActivity() {
 
