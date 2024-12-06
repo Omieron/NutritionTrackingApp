@@ -27,18 +27,81 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="90dp"
         android:background="@color/Pale_Sage_Green"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
-        <TextView
-            android:id="@+id/tvRecipeDisplay"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="18sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/recipeCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textSize="18sp"
+                tools:text="Calories: 320" />
+
+            <TextView
+                android:id="@+id/recipeProtein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textSize="18sp"
+                tools:text="Protein: 15g" />
+
+            <TextView
+                android:id="@+id/recipeCarbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textSize="18sp"
+                tools:text="Carbs: 45g" />
+
+            <TextView
+                android:id="@+id/recipeFat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textSize="18sp"
+                tools:text="Fat: 12g" />
+
+            <TextView
+                android:id="@+id/recipePrepTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textSize="18sp"
+                tools:text="Prep Time: 5 min" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Instructions"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/recipeInstructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textSize="18sp"
+                tools:text="Recipe instructions here" />
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
@@ -58,10 +121,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imgRecipe"
+            android:id="@+id/recipeImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
     </LinearLayout>
 
@@ -74,6 +138,7 @@
         android:layout_marginBottom="13dp"
         android:background="@color/Pale_Sage_Green"
         android:orientation="horizontal"
+        android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -81,11 +146,14 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <TextView
-            android:id="@+id/tvRecipeTitle"
+            android:id="@+id/recipeTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="TextView"
-            android:textSize="34sp" />
+            android:gravity="center_vertical"
+            android:textColor="@color/Deep_Mocha_Brown"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            tools:text="Recipe Title" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
