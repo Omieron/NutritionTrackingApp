@@ -1,4 +1,4 @@
-package com.sarazebardast.project.util
+package com.group20.nutritiontrackingapp.util
 
 object Constants {
     const val DATABASE_NAME = "nutrition_db"
