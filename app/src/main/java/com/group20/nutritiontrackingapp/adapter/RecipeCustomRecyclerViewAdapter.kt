@@ -1,4 +1,4 @@
-package com.sarazebardast.project.adapter
+package com.group20.nutritiontrackingapp.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -10,9 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.sarazebardast.project.R
-import com.sarazebardast.project.RecipeActivity
-import com.sarazebardast.project.db.Recipe
+import com.group20.nutritiontrackingapp.R
+import com.group20.nutritiontrackingapp.RecipeActivity
+import com.group20.nutritiontrackingapp.db.Recipe
 
 class RecipeCustomRecyclerViewAdapter(
     private val context: Context,
