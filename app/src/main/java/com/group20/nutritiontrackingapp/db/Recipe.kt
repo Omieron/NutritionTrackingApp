@@ -1,8 +1,8 @@
-package com.sarazebardast.project.db
+package com.group20.nutritiontrackingapp.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.sarazebardast.project.util.Constants
+import com.group20.nutritiontrackingapp.util.Constants
 
 @Entity(tableName = Constants.RECIPE_TABLE)
 class Recipe(
