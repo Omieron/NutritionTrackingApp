@@ -1,23 +1,37 @@
 package com.group20.nutritiontrackingapp
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.group20.nutritiontrackingapp.adapter.ExerciseCustomRecyclerViewAdapter
 import com.group20.nutritiontrackingapp.adapter.RecipeCustomRecyclerViewAdapter
 import com.group20.nutritiontrackingapp.databinding.ActivityMainBinding
+import com.group20.nutritiontrackingapp.databinding.ExerciseDialogBinding
 import com.group20.nutritiontrackingapp.db.AppDatabase
+import com.group20.nutritiontrackingapp.db.Exercise
 import com.group20.nutritiontrackingapp.db.Recipe
 import com.group20.nutritiontrackingapp.util.Constants
 import java.util.Collections
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.ExerciseAdapterInterface {
 
     // Variables
+    lateinit var customDialog: Dialog
     lateinit var binding: ActivityMainBinding
+    lateinit var bindingForDialog: ExerciseDialogBinding
     var adapter: RecipeCustomRecyclerViewAdapter?=null
+    var exerciseAdapter: ExerciseCustomRecyclerViewAdapter? = null
+    private var selectedExercise: Exercise? = null
+    private var exerciseTimeMinutes: Int = 0
+    private var totalCaloriesBurned: Int = 0
+    private var activeMinutes: Int = 0
 
     // Database
     private val db: AppDatabase by lazy {
@@ -36,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         // Binding section
+        bindingForDialog = ExerciseDialogBinding.inflate(layoutInflater)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -54,6 +69,12 @@ class MainActivity : AppCompatActivity() {
         //data
         prepareData()
         getData()
+
+        //Dialog
+        binding.addExerciseButton.setOnClickListener{
+            customDialog.show()
+        }
+        createDailog()
     }
 
     // Functions
@@ -197,5 +218,117 @@ class MainActivity : AppCompatActivity() {
             )
         )
         db.recipeDao().insertAllRecipes(recipes)
+    }
+
+    fun createDailog() {
+        customDialog = Dialog(this)
+        customDialog.setContentView(bindingForDialog.root)
+
+        // Setup RecyclerView with adapter
+        val recyclerView = bindingForDialog.exerciseRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Setup search functionality
+        bindingForDialog.searchExercise.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                exerciseAdapter?.filter(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // Display exercises from database
+        if(db.exerciseDao().getAllExercises().isNotEmpty()) {
+            displayExercises(db.exerciseDao().getAllExercises())
+        } else {
+            prepareExerciseData()
+            displayExercises(db.exerciseDao().getAllExercises())
+        }
+
+        bindingForDialog.addButton.setOnClickListener {
+            selectedExercise?.let { exercise ->
+                exerciseTimeMinutes = 30
+                val caloriesBurned = (exercise.caloriesPerHour * exerciseTimeMinutes) / 60
+
+                // Update totals
+                totalCaloriesBurned += caloriesBurned
+                activeMinutes += exerciseTimeMinutes
+
+                // Update UI
+                updateExerciseStats()
+
+                Toast.makeText(this, "Added ${exercise.name}", Toast.LENGTH_SHORT).show()
+                // Clear selection
+                selectedExercise = null
+                customDialog.dismiss()
+            }
+        }
+
+        bindingForDialog.cancelButton.setOnClickListener {
+            // Clear selection
+            selectedExercise = null
+            customDialog.dismiss()
+        }
+    }
+
+    private fun prepareExerciseData() {
+        val exercises = ArrayList<Exercise>()
+        exercises.add(Exercise(
+            name = "Running",
+            caloriesPerHour = 600,
+            category = "Intense",
+            description = "High-impact cardio exercise"
+        ))
+        exercises.add(Exercise(
+            name = "Walking",
+            caloriesPerHour = 200,
+            category = "Light",
+            description = "Low-impact cardio exercise"
+        ))
+        exercises.add(Exercise(
+            name = "Swimming",
+            caloriesPerHour = 400,
+            category = "Moderate",
+            description = "Full-body workout in water"
+        ))
+        exercises.add(Exercise(
+            name = "Cycling",
+            caloriesPerHour = 450,
+            category = "Moderate",
+            description = "Low-impact cardio on bike"
+        ))
+        exercises.add(Exercise(
+            name = "HIIT",
+            caloriesPerHour = 700,
+            category = "Intense",
+            description = "High-intensity interval training"
+        ))
+        exercises.add(Exercise(
+            name = "Yoga",
+            caloriesPerHour = 250,
+            category = "Light",
+            description = "Mind-body exercise for flexibility"
+        ))
+
+        db.exerciseDao().insertAllExercises(exercises)
+    }
+
+    override fun displayExercise(exercise: Exercise) {
+        selectedExercise = exercise
+        bindingForDialog.addButton.isEnabled = true
+    }
+
+    override fun displayExercises(exercises: MutableList<Exercise>) {
+        exerciseAdapter = ExerciseCustomRecyclerViewAdapter(this, exercises)
+        bindingForDialog.exerciseRecyclerView.adapter = exerciseAdapter
+        exerciseAdapter?.notifyDataSetChanged()
+    }
+
+    private fun updateExerciseStats() {
+        // Update the exercise section texts
+        binding.caloriesBurnedText.text = "Calories Burned: $totalCaloriesBurned kcal"
+        binding.activeMinutesText.text = "Active Minutes: $activeMinutes min"
     }
 }
