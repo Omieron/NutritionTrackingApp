@@ -1,5 +1,6 @@
 package com.group20.nutritiontrackingapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -40,7 +41,15 @@ class MainActivity : AppCompatActivity() {
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         //Listeners
+        binding.profileButton.setOnClickListener {
+            val intent = Intent(this, PersonActivity::class.java)
+            startActivity(intent)
+        }
 
+        binding.reportButton.setOnClickListener {
+            val intent = Intent(this, ReportActivity::class.java)
+            startActivity(intent)
+        }
 
         //data
         prepareData()
