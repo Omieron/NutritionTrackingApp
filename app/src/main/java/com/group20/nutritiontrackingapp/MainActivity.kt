@@ -1,10 +1,12 @@
 package com.group20.nutritiontrackingapp
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +20,12 @@ import com.group20.nutritiontrackingapp.db.AppDatabase
 import com.group20.nutritiontrackingapp.db.Exercise
 import com.group20.nutritiontrackingapp.db.Recipe
 import com.group20.nutritiontrackingapp.util.Constants
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Collections
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.ExerciseAdapterInterface {
 
@@ -32,6 +39,8 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     private var exerciseTimeMinutes: Int = 0
     private var totalCaloriesBurned: Int = 0
     private var activeMinutes: Int = 0
+    private var waterCount = 0
+    private lateinit var waterGlasses: List<ImageView>
 
     // Database
     private val db: AppDatabase by lazy {
@@ -66,6 +75,21 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             startActivity(intent)
         }
 
+        binding.addWaterButton.setOnClickListener {
+            if (waterCount < 8) {
+                waterCount++
+                updateWaterDisplay()
+                saveWaterCount()
+            }
+        }
+
+        binding.addWaterButton.setOnLongClickListener { // Long click to reset it just in case
+            waterCount = 0
+            updateWaterDisplay()
+            saveWaterCount()
+            true
+        }
+
         //data
         prepareData()
         getData()
@@ -75,6 +99,40 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             customDialog.show()
         }
         createDailog()
+
+        // Water
+        // shared pref - >  like a mini database for simple values -> used to save
+        val prefs = getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE)
+        val today = LocalDate.now().toString()
+        val lastDate = prefs.getString("lastDate", "")
+
+        // Reset count if it's a new day
+        waterCount = if (today == lastDate) {
+            prefs.getInt("waterCount", 0)
+        } else {
+            0
+        }
+
+        // Initialize water glass ImageViews
+        waterGlasses = listOf(
+            findViewById(R.id.glass1),
+            findViewById(R.id.glass2),
+            findViewById(R.id.glass3),
+            findViewById(R.id.glass4),
+            findViewById(R.id.glass5),
+            findViewById(R.id.glass6),
+            findViewById(R.id.glass7),
+            findViewById(R.id.glass8)
+        )
+        updateWaterDisplay()
+
+        // Title
+        // Today's date formatted
+        val sdf = SimpleDateFormat("EEEE, MMM d", Locale.getDefault())
+        val currentDate = sdf.format(Date())
+
+        // Set the title
+        binding.currentDate.text = currentDate
     }
 
     // Functions
@@ -330,5 +388,22 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         // Update the exercise section texts
         binding.caloriesBurnedText.text = "Calories Burned: $totalCaloriesBurned kcal"
         binding.activeMinutesText.text = "Active Minutes: $activeMinutes min"
+    }
+
+    private fun updateWaterDisplay() {
+        waterGlasses.forEachIndexed { index, glass ->
+            glass.setImageResource(
+                if (index < waterCount) R.drawable.water_full
+                else R.drawable.ic_drop_empty
+            )
+        }
+    }
+
+    private fun saveWaterCount() {
+        getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE).edit().apply {
+            putInt("waterCount", waterCount)
+            putString("lastDate", LocalDate.now().toString())
+            apply()
+        }
     }
 }
