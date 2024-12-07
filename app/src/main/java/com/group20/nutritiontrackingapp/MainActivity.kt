@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     private var activeMinutes: Int = 0
     private var waterCount = 0
     private lateinit var waterGlasses: List<ImageView>
+    private val PREFS_NAME = "ExercisePrefs"
+    private val KEY_CALORIES_BURNED = "caloriesBurned"
+    private val KEY_ACTIVE_MINUTES = "activeMinutes"
+    private val KEY_LAST_EXERCISE_DATE = "lastExerciseDate"
 
     // Database
     private val db: AppDatabase by lazy {
@@ -87,6 +91,12 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             waterCount = 0
             updateWaterDisplay()
             saveWaterCount()
+            true
+        }
+        binding.addExerciseButton.setOnLongClickListener { // Long click to reset it just in case
+            totalCaloriesBurned = 0
+            activeMinutes = 0
+            updateExerciseStats()
             true
         }
 
@@ -276,6 +286,9 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             )
         )
         db.recipeDao().insertAllRecipes(recipes)
+
+        // Exercise
+        loadExerciseStats()
     }
 
     fun createDailog() {
@@ -388,6 +401,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         // Update the exercise section texts
         binding.caloriesBurnedText.text = "Calories Burned: $totalCaloriesBurned kcal"
         binding.activeMinutesText.text = "Active Minutes: $activeMinutes min"
+        saveExerciseStats()
     }
 
     private fun updateWaterDisplay() {
@@ -405,5 +419,35 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             putString("lastDate", LocalDate.now().toString())
             apply()
         }
+    }
+
+    // Save exercise stats
+    private fun saveExerciseStats() {
+        getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().apply {
+            putInt(KEY_CALORIES_BURNED, totalCaloriesBurned)
+            putInt(KEY_ACTIVE_MINUTES, activeMinutes)
+            putString(KEY_LAST_EXERCISE_DATE, LocalDate.now().toString())
+            apply()
+        }
+    }
+
+    // Load exercise stats
+    private fun loadExerciseStats() {
+        val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val today = LocalDate.now().toString()
+        val lastDate = prefs.getString(KEY_LAST_EXERCISE_DATE, "") ?: ""
+
+        if (today == lastDate) {
+            // Load saved values if it's the same day
+            totalCaloriesBurned = prefs.getInt(KEY_CALORIES_BURNED, 0)
+            activeMinutes = prefs.getInt(KEY_ACTIVE_MINUTES, 0)
+        } else {
+            // Reset values if it's a new day
+            totalCaloriesBurned = 0
+            activeMinutes = 0
+        }
+
+        // Update UI with loaded/reset values
+        updateExerciseStats()
     }
 }
