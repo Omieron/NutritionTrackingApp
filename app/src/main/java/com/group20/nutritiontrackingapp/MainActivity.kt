@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         binding.addExerciseButton.setOnClickListener{
             customDialog.show()
         }
-        createDailog()
+        createDialog()
 
         // Water
         // shared pref - >  like a mini database for simple values -> used to save
@@ -291,7 +291,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         loadExerciseStats()
     }
 
-    fun createDailog() {
+    private fun createDialog() {
         customDialog = Dialog(this)
         customDialog.setContentView(bindingForDialog.root)
 
@@ -332,16 +332,26 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
                 Toast.makeText(this, "Added ${exercise.name}", Toast.LENGTH_SHORT).show()
                 // Clear selection
-                selectedExercise = null
-                customDialog.dismiss()
+                clearExerciseDialog()
             }
         }
 
         bindingForDialog.cancelButton.setOnClickListener {
             // Clear selection
-            selectedExercise = null
-            customDialog.dismiss()
+            clearExerciseDialog()
         }
+
+        customDialog.setOnDismissListener(){
+            // Clear selection
+            clearExerciseDialog()
+        }
+    }
+
+    private fun clearExerciseDialog(){
+        ExerciseCustomRecyclerViewAdapter.setSelectedPosition()
+        bindingForDialog.searchExercise.setText("")
+        selectedExercise = null
+        customDialog.dismiss()
     }
 
     private fun prepareExerciseData() {

@@ -22,4 +22,9 @@
     <string name="macro_carb">Carbohydrate</string>
     <string name="macro_pro">Protein</string>
     <string name="macro_fat">Fat</string>
+
+    <!-- Exercise Marker Name -->
+    <string name="exercise_int">Intense</string>
+    <string name="exercise_mod">Moderate</string>
+    <string name="exercise_lig">Light</string>
 </resources>

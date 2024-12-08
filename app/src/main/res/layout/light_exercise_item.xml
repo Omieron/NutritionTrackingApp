@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     app:cardCornerRadius="8dp"
-    app:cardBackgroundColor="#FFFFFF"
     app:cardElevation="2dp">
 
     <LinearLayout
@@ -19,7 +18,7 @@
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/light"
-            app:tint="#2196F3" />
+            app:tint="@color/Pastel_Blue" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -33,25 +32,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#212121"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/exerciseCalories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="#2196F3"
+                android:textColor="@color/Pastel_Blue"
                 android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#E3F2FD"
+            android:background="@drawable/exercise_level_marker_background"
             android:paddingHorizontal="12dp"
             android:paddingVertical="4dp"
-            android:text="Light"
-            android:textColor="#2196F3"
+            android:textStyle="bold"
+            android:text="@string/exercise_lig"
+            android:textColor="@color/Pastel_Blue"
             android:layout_gravity="center_vertical"
             android:textSize="12sp" />
     </LinearLayout>

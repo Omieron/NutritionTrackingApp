@@ -13,8 +13,15 @@ class ExerciseCustomRecyclerViewAdapter(
     private val context: Context,
     private val exercises: MutableList<Exercise>,
     private var exercisesFull: List<Exercise> = ArrayList(exercises)
-
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    companion object {
+        var selectedPosition = RecyclerView.NO_POSITION
+        // I don't want to import RecyclerView in a different class so create a method here
+        fun setSelectedPosition() {
+            selectedPosition = RecyclerView.NO_POSITION
+        }
+    }
 
     // Interface
     interface ExerciseAdapterInterface {
@@ -47,8 +54,27 @@ class ExerciseCustomRecyclerViewAdapter(
         exerciseHolder.exerciseName.text = currentExercise.name
         exerciseHolder.exerciseCalories.text = "${currentExercise.caloriesPerHour} cal/hr"
 
+        // Set selected or not
+        holder.itemView.isSelected = (position == selectedPosition)
+
+        // Change background based on selection
+        if (position == selectedPosition) {
+            holder.itemView.setBackgroundResource(R.drawable.selected_background)
+        } else {
+            holder.itemView.setBackgroundResource(R.drawable.default_background)
+        }
+
         // Set click listener
         holder.itemView.setOnClickListener {
+            // Update selected position
+            val previousPosition = selectedPosition
+            selectedPosition = holder.adapterPosition
+
+            // Notify changes
+            notifyItemChanged(previousPosition) // Deselect previous
+            notifyItemChanged(selectedPosition) // Select new
+
+            // Notify interface
             adapterInterface.displayExercise(currentExercise)
         }
     }
@@ -87,4 +113,5 @@ class ExerciseCustomRecyclerViewAdapter(
         val exerciseName: TextView = itemView.findViewById(R.id.exerciseName)
         val exerciseCalories: TextView = itemView.findViewById(R.id.exerciseCalories)
     }
+
 }

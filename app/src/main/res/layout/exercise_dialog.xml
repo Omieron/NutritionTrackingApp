@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/Soft_Eggshell_White"
@@ -9,12 +9,14 @@
     <!-- Dialog Title -->
     <TextView
         android:id="@+id/dialogTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select Exercise"
         android:textColor="@color/Deep_Mocha_Brown"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/searchExercise"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,53 +26,71 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:background="@color/Pale_Sage_Green"
+        android:layout_marginBottom="8dp"
+        android:background="@color/Warm_Taupe_Brown"
         android:drawablePadding="8dp"
         android:hint="Search Exercise"
         android:inputType="text"
         android:paddingHorizontal="12dp"
-        android:textColor="@color/Deep_Mocha_Brown"
-        android:textColorHint="@color/Warm_Taupe_Brown"
-        app:layout_constraintTop_toBottomOf="@id/dialogTitle" />
+        android:textColor="@color/Soft_Eggshell_White"
+        android:textColorHint="@color/Soft_Eggshell_White"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitle" />
 
     <!-- Exercise List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/exerciseRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/Pale_Sage_Green"
-        android:clipToPadding="false"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/searchExercise" />
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="380dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchExercise">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/exerciseRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/Warm_Taupe_Brown"
+            android:clipToPadding="false"
+            android:padding="4dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp" />
+
+    </FrameLayout>
 
     <!-- Buttons Container -->
     <LinearLayout
+        android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/exerciseRecyclerView">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
         <Button
             android:id="@+id/cancelButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/Warm_Taupe_Brown"
-            android:text="cancel"
+            android:backgroundTint="@color/Deep_Mocha_Brown"
+            android:text="Cancel"
             android:textColor="@color/Soft_Eggshell_White" />
 
         <Button
             android:id="@+id/addButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:backgroundTint="@color/Muted_Olive_Green"
+            android:padding="8dp"
             android:text="Add"
             android:textColor="@color/Soft_Eggshell_White" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
