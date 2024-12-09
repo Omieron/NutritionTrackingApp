@@ -30,10 +30,10 @@ import java.util.Locale
 class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.ExerciseAdapterInterface {
 
     // Variables
-    lateinit var customDialog: Dialog
-    lateinit var binding: ActivityMainBinding
-    lateinit var bindingForDialog: ExerciseDialogBinding
-    var adapter: RecipeCustomRecyclerViewAdapter?=null
+    private lateinit var customDialog: Dialog
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var bindingForDialog: ExerciseDialogBinding
+    private var adapter: RecipeCustomRecyclerViewAdapter?=null
     var exerciseAdapter: ExerciseCustomRecyclerViewAdapter? = null
     private var selectedExercise: Exercise? = null
     private var exerciseTimeMinutes: Int = 0
@@ -89,13 +89,17 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
         binding.addWaterButton.setOnLongClickListener { // Long click to reset it just in case
             waterCount = 0
+            createToastMessage("Reset Water Counter")
             updateWaterDisplay()
             saveWaterCount()
             true
         }
+
+
         binding.addExerciseButton.setOnLongClickListener { // Long click to reset it just in case
             totalCaloriesBurned = 0
             activeMinutes = 0
+            createToastMessage("Reset Exercise Counter")
             updateExerciseStats()
             true
         }
@@ -329,8 +333,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
                 // Update UI
                 updateExerciseStats()
-
-                Toast.makeText(this, "Added ${exercise.name}", Toast.LENGTH_SHORT).show()
+                createToastMessage("Added ${exercise.name}")
                 // Clear selection
                 clearExerciseDialog()
             }
@@ -459,5 +462,10 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
         // Update UI with loaded/reset values
         updateExerciseStats()
+    }
+
+    // Create Toast Message
+    private fun createToastMessage(str:String) {
+        Toast.makeText(this@MainActivity, str, Toast.LENGTH_SHORT).show()
     }
 }
