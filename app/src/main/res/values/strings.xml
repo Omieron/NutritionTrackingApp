@@ -15,10 +15,13 @@
     <string name="water_intake_text">Water Intake</string>
     <string name="person_name_hint">Name</string>
     <string name="person_age_hint">Age</string>
-    <string name="person_weight_hint">Weight></string>
+    <string name="person_weight_hint">Weight</string>
     <string name="person_height_hint">Height</string>
     <string name="person_caloric_hint">Calorie Goal</string>
     <string name="person_protein_hint">Protein Goal</string>
+    <string name="female_radio_button">Female</string>
+    <string name="male_radio_button">Male</string>
+    <string name="instruction_txt">Instructions</string>
 
     <!-- Report Activity -->
     <string name="macro_carb">Carbohydrate</string>

@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Instructions"
+                android:text="@string/instruction_txt"
                 android:textColor="@color/Deep_Mocha_Brown"
                 android:textSize="20sp"
                 android:textStyle="bold" />
