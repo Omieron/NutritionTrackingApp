@@ -348,7 +348,7 @@
                         android:layout_height="25dp"
                         android:layout_weight="1"
                         android:layout_margin="2dp"
-                        android:src="@drawable/water_empty" />
+                        android:src="@drawable/baseline_empty_water_drop" />
 
                     <ImageView
                         android:id="@+id/glass2"
@@ -356,7 +356,7 @@
                         android:layout_height="25dp"
                         android:layout_weight="1"
                         android:layout_margin="2dp"
-                        android:src="@drawable/water_empty" />
+                        android:src="@drawable/baseline_empty_water_drop" />
 
                     <ImageView
                         android:id="@+id/glass3"
@@ -364,7 +364,7 @@
                         android:layout_height="25dp"
                         android:layout_weight="1"
                         android:layout_margin="2dp"
-                        android:src="@drawable/water_empty" />
+                        android:src="@drawable/baseline_empty_water_drop" />
 
                     <ImageView
                         android:id="@+id/glass4"
@@ -372,7 +372,7 @@
                         android:layout_height="25dp"
                         android:layout_weight="1"
                         android:layout_margin="2dp"
-                        android:src="@drawable/water_empty" />
+                        android:src="@drawable/baseline_empty_water_drop" />
 
                     <ImageView
                         android:id="@+id/glass5"
@@ -380,7 +380,7 @@
                         android:layout_height="25dp"
                         android:layout_weight="1"
                         android:layout_margin="2dp"
-                        android:src="@drawable/water_empty" />
+                        android:src="@drawable/baseline_empty_water_drop" />
 
                     <ImageView
                         android:id="@+id/glass6"
@@ -388,7 +388,7 @@
                         android:layout_height="25dp"
                         android:layout_weight="1"
                         android:layout_margin="2dp"
-                        android:src="@drawable/water_empty" />
+                        android:src="@drawable/baseline_empty_water_drop" />
 
                     <ImageView
                         android:id="@+id/glass7"
@@ -396,7 +396,7 @@
                         android:layout_height="25dp"
                         android:layout_weight="1"
                         android:layout_margin="2dp"
-                        android:src="@drawable/water_empty" />
+                        android:src="@drawable/baseline_empty_water_drop" />
 
                     <ImageView
                         android:id="@+id/glass8"
@@ -404,7 +404,7 @@
                         android:layout_height="25dp"
                         android:layout_weight="1"
                         android:layout_margin="2dp"
-                        android:src="@drawable/water_empty" />
+                        android:src="@drawable/baseline_empty_water_drop" />
 
                 </LinearLayout>
             </LinearLayout>

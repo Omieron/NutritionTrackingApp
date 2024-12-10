@@ -420,8 +420,8 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     private fun updateWaterDisplay() {
         waterGlasses.forEachIndexed { index, glass ->
             glass.setImageResource(
-                if (index < waterCount) R.drawable.water_full
-                else R.drawable.ic_drop_empty
+                if (index < waterCount) R.drawable.baseline_fill_water_drop
+                else R.drawable.baseline_empty_water_drop
             )
         }
     }
