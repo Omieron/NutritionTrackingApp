@@ -15,13 +15,19 @@ class MealActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         // Binding section
         binding = ActivityMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Setting title
+        var mealTitle: String = intent.getStringExtra("MEAL_TYPE").toString()
+        binding.tvTitle.text = mealTitle
+
         //Listeners
         binding.backButton.setOnClickListener {
+
             finish()
         }
     }

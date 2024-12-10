@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -22,7 +23,6 @@ import com.group20.nutritiontrackingapp.db.Recipe
 import com.group20.nutritiontrackingapp.util.Constants
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.Collections
 import java.util.Date
 import java.util.Locale
@@ -79,6 +79,20 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             startActivity(intent)
         }
 
+        val clickListener = View.OnClickListener { view ->
+            when (view.id) {
+                R.id.layoutBreakfast -> openMealActivity("Breakfast")
+                R.id.layoutLunch -> openMealActivity("Lunch")
+                R.id.layoutDinner -> openMealActivity("Dinner")
+                R.id.layoutSnack -> openMealActivity("Snack")
+            }
+        }
+
+        binding.layoutBreakfast.setOnClickListener(clickListener)
+        binding.layoutLunch.setOnClickListener(clickListener)
+        binding.layoutDinner.setOnClickListener(clickListener)
+        binding.layoutSnack.setOnClickListener(clickListener)
+
         binding.addWaterButton.setOnClickListener {
             if (waterCount < 8) {
                 waterCount++
@@ -94,7 +108,6 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             saveWaterCount()
             true
         }
-
 
         binding.addExerciseButton.setOnLongClickListener { // Long click to reset it just in case
             totalCaloriesBurned = 0
@@ -147,6 +160,12 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
         // Set the title
         binding.currentDate.text = currentDate
+    }
+
+    fun openMealActivity(mealType: String) {
+        val intent = Intent(this, MealActivity::class.java)
+        intent.putExtra("MEAL_TYPE", mealType)
+        startActivity(intent)
     }
 
     // Functions
