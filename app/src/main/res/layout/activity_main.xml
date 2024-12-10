@@ -130,22 +130,20 @@
 
                 <!-- Breakfast Section -->
                 <LinearLayout
+                    android:id="@+id/layoutBreakfast"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
                     android:background="@color/Pale_Sage_Green"
                     android:orientation="vertical"
                     android:padding="8dp">
 
-                    <Button
-                        android:id="@+id/breakfastButton"
+                    <ImageView
+                        android:id="@+id/imageView"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:backgroundTint="@color/Warm_Taupe_Brown"
-                        android:text="@string/breakfast_text"
-                        android:textColor="@color/Soft_Eggshell_White"
-                        android:textSize="10sp" />
+                        android:layout_height="45dp"
+                        app:srcCompat="@drawable/baseline_egg_alt_24" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/breakfastRecyclerView"
@@ -154,6 +152,13 @@
                         android:layout_marginTop="8dp"
                         android:minHeight="80dp"
                         android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/breakfast_text" />
 
                     <TextView
                         android:id="@+id/breakfastCalories"
@@ -168,22 +173,14 @@
 
                 <!-- Lunch Section -->
                 <LinearLayout
+                    android:id="@+id/layoutLunch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
                     android:background="@color/Pale_Sage_Green"
                     android:orientation="vertical"
                     android:padding="8dp">
-
-                    <Button
-                        android:id="@+id/lunchButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:backgroundTint="@color/Warm_Taupe_Brown"
-                        android:text="@string/lunch_text"
-                        android:textColor="@color/Soft_Eggshell_White"
-                        android:textSize="12sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/lunchRecyclerView"
@@ -192,6 +189,19 @@
                         android:layout_marginTop="8dp"
                         android:minHeight="80dp"
                         android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        app:srcCompat="@drawable/baseline_lunch_dining_24" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/lunch_text" />
 
                     <TextView
                         android:id="@+id/lunchCalories"
@@ -206,22 +216,14 @@
 
                 <!-- Dinner Section -->
                 <LinearLayout
+                    android:id="@+id/layoutDinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
                     android:background="@color/Pale_Sage_Green"
                     android:orientation="vertical"
                     android:padding="8dp">
-
-                    <Button
-                        android:id="@+id/dinnerButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:backgroundTint="@color/Warm_Taupe_Brown"
-                        android:text="@string/dinner_text"
-                        android:textColor="@color/Soft_Eggshell_White"
-                        android:textSize="12sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/dinnerRecyclerView"
@@ -230,6 +232,19 @@
                         android:layout_marginTop="8dp"
                         android:minHeight="80dp"
                         android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        app:srcCompat="@drawable/baseline_dinner_dining_24" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/dinner_text" />
 
                     <TextView
                         android:id="@+id/dinnerCalories"
@@ -244,6 +259,7 @@
 
                 <!-- Snack Section -->
                 <LinearLayout
+                    android:id="@+id/layoutSnack"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -251,14 +267,11 @@
                     android:orientation="vertical"
                     android:padding="8dp">
 
-                    <Button
-                        android:id="@+id/snackButton"
+                    <ImageView
+                        android:id="@+id/imageView6"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:backgroundTint="@color/Warm_Taupe_Brown"
-                        android:text="@string/snack_text"
-                        android:textColor="@color/Soft_Eggshell_White"
-                        android:textSize="12sp" />
+                        android:layout_height="45dp"
+                        app:srcCompat="@drawable/baseline_free_breakfast_24" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/snackRecyclerView"
@@ -266,7 +279,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:minHeight="80dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/snack_text" />
 
                     <TextView
                         android:id="@+id/snackCalories"

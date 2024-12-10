@@ -90,7 +90,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/Muted_Olive_Green"
             android:padding="8dp"
-            android:style="?android:attr/buttonBarButtonStyle"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/exercise_add_btn"
             android:textColor="@color/Soft_Eggshell_White" />
     </LinearLayout>
