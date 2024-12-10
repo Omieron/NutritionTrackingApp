@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Project</string>
-    <string name="meal_search_text">Search meals...</string>
+    <string name="meal_search_text">Search meals…</string>
     <string name="add_meal_text">Add Meal</string>
     <string name="back_button_text">Back</string>
     <string name="suggested_recipes_text">Suggested Recipes :)</string>
@@ -23,8 +23,15 @@
     <string name="macro_pro">Protein</string>
     <string name="macro_fat">Fat</string>
 
+    <!-- Exercise Dialog -->
+    <string name="exercise_title">Select Exercise</string>
+    <string name="exercise_search">Search Exercise</string>
+    <string name="exercise_cancel_btn">Cancel</string>
+    <string name="exercise_add_btn">Add</string>
+
     <!-- Exercise Marker Name -->
     <string name="exercise_int">Intense</string>
     <string name="exercise_mod">Moderate</string>
     <string name="exercise_lig">Light</string>
+
 </resources>

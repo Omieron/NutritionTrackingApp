@@ -11,7 +11,7 @@
         android:id="@+id/dialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Exercise"
+        android:text="@string/exercise_title"
         android:textColor="@color/Deep_Mocha_Brown"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -29,7 +29,7 @@
         android:layout_marginBottom="8dp"
         android:background="@color/Warm_Taupe_Brown"
         android:drawablePadding="8dp"
-        android:hint="Search Exercise"
+        android:hint="@string/exercise_search"
         android:inputType="text"
         android:paddingHorizontal="12dp"
         android:textColor="@color/Soft_Eggshell_White"
@@ -42,7 +42,7 @@
     <!-- Exercise List -->
     <FrameLayout
         android:id="@+id/frameLayout"
-        android:layout_width="380dp"
+        android:layout_width="360dp"
         android:layout_height="320dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="24dp"
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/Deep_Mocha_Brown"
-            android:text="Cancel"
+            android:text="@string/exercise_cancel_btn"
             android:textColor="@color/Soft_Eggshell_White" />
 
         <Button
@@ -90,7 +90,8 @@
             android:layout_weight="1"
             android:backgroundTint="@color/Muted_Olive_Green"
             android:padding="8dp"
-            android:text="Add"
+            android:style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/exercise_add_btn"
             android:textColor="@color/Soft_Eggshell_White" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
