@@ -6,4 +6,7 @@ object Constants {
     const val MEAL_TABLE = "meal"
     const val RECIPE_TABLE = "recipe"
     const val EXERCISE_TABLE = "exercise"
+
+    // Retrofit for meals
+    var baseUrl: String = "https://www.jsonkeeper.com/b/"
 }

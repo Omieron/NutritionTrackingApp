@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -14,13 +15,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.group20.nutritiontrackingapp.adapter.ExerciseCustomRecyclerViewAdapter
+import com.group20.nutritiontrackingapp.adapter.MealCustomRecyclerViewAdapter
 import com.group20.nutritiontrackingapp.adapter.RecipeCustomRecyclerViewAdapter
 import com.group20.nutritiontrackingapp.databinding.ActivityMainBinding
 import com.group20.nutritiontrackingapp.databinding.ExerciseDialogBinding
 import com.group20.nutritiontrackingapp.db.AppDatabase
 import com.group20.nutritiontrackingapp.db.Exercise
+import com.group20.nutritiontrackingapp.db.Meal
 import com.group20.nutritiontrackingapp.db.Recipe
+import com.group20.nutritiontrackingapp.retrofit.ApiClient
+import com.group20.nutritiontrackingapp.retrofit.MealService
 import com.group20.nutritiontrackingapp.util.Constants
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Collections
@@ -46,6 +54,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     private val KEY_ACTIVE_MINUTES = "activeMinutes"
     private val KEY_LAST_EXERCISE_DATE = "lastExerciseDate"
 
+
     // Database
     private val db: AppDatabase by lazy {
         Room.databaseBuilder(
@@ -61,6 +70,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
 
         // Binding section
         bindingForDialog = ExerciseDialogBinding.inflate(layoutInflater)

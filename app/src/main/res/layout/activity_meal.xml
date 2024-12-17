@@ -79,7 +79,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/Muted_Olive_Green"
             android:text="@string/add_meal_text"
-            android:textColor="@color/Warm_Taupe_Brown" />
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/backButton"
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/Warm_Taupe_Brown"
             android:text="@string/back_button_text"
-            android:textColor="@color/Soft_Eggshell_White" />
+            android:textColor="@color/black" />
     </LinearLayout>
 
     <LinearLayout
