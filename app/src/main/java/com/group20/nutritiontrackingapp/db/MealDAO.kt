@@ -1,5 +1,6 @@
 package com.group20.nutritiontrackingapp.db
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -7,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.group20.nutritiontrackingapp.util.Constants
 
+@Dao
 interface MealDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -18,16 +20,16 @@ interface MealDAO {
     @Delete
     fun deleteMeal(meal: Meal):Int
 
-    @Query("DELETE FROM ${Constants.EXERCISE_TABLE}")
+    @Query("DELETE FROM ${Constants.MEAL_TABLE}")
     fun deleteAllMeals()
 
-    @Query("SELECT * FROM ${Constants.EXERCISE_TABLE} ORDER BY id DESC")
+    @Query("SELECT * FROM ${Constants.MEAL_TABLE} ORDER BY id DESC")
     fun getAllMeals():MutableList<Meal>
 
-    @Query("SELECT * FROM ${Constants.EXERCISE_TABLE} WHERE id =:id")
+    @Query("SELECT * FROM ${Constants.MEAL_TABLE} WHERE id =:id")
     fun getMealById(id:Int):Meal
 
-    @Query("SELECT * FROM ${Constants.EXERCISE_TABLE} WHERE name LIKE :name")
+    @Query("SELECT * FROM ${Constants.MEAL_TABLE} WHERE name LIKE :name")
     fun getMealsByName(name:String):MutableList<Meal>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -36,6 +38,4 @@ interface MealDAO {
             insertMeal(it)
         }
     }
-
-
 }
