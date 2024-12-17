@@ -51,7 +51,7 @@
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/tvMealName"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Serving: 1.0"/>
+            tools:text="@string/serving_txt"/>
 
         <!-- Nutrition Info Container -->
         <LinearLayout
@@ -82,7 +82,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Calories"
+                    android:text="@string/calories_txt"
                     android:textSize="12sp"/>
             </LinearLayout>
 
@@ -105,7 +105,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Protein"
+                    android:text="@string/protein_txt"
                     android:textSize="12sp"/>
             </LinearLayout>
 
@@ -128,7 +128,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Carbs"
+                    android:text="@string/carbs_txt"
                     android:textSize="12sp"/>
             </LinearLayout>
 
@@ -151,7 +151,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fat"
+                    android:text="@string/fat_txt"
                     android:textSize="12sp"/>
             </LinearLayout>
         </LinearLayout>

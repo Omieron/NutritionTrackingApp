@@ -39,4 +39,11 @@
     <string name="exercise_mod">Moderate</string>
     <string name="exercise_lig">Light</string>
 
+    <!-- Meal Item -->
+    <string name="serving_txt">Serving: </string>
+    <string name="calories_txt">Calories</string>
+    <string name="protein_txt">Protein</string>
+    <string name="carbs_txt">Carbs</string>
+    <string name="fat_txt">Fat</string>
+
 </resources>
