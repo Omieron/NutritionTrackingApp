@@ -1,5 +1,6 @@
 package com.group20.nutritiontrackingapp
 
+import android.animation.Animator
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -14,6 +15,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.group20.nutritiontrackingapp.adapter.ExerciseCustomRecyclerViewAdapter
 import com.group20.nutritiontrackingapp.adapter.MealCustomRecyclerViewAdapter
 import com.group20.nutritiontrackingapp.adapter.RecipeCustomRecyclerViewAdapter
@@ -79,6 +82,12 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         //Listeners
+        binding.animatedText.setOnClickListener{
+            YoYo.with(Techniques.Bounce)  // You can change Bounce to any other animation
+                .duration(700)            // Duration in milliseconds
+                .playOn(binding.animatedText)
+        }
+
         binding.profileButton.setOnClickListener {
             val intent = Intent(this, PersonActivity::class.java)
             startActivity(intent)
@@ -104,6 +113,24 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         binding.layoutSnack.setOnClickListener(clickListener)
 
         binding.addWaterButton.setOnClickListener {
+
+            val nextGlass = waterGlasses[waterCount]
+
+            //Animation
+            YoYo.with(Techniques.Bounce)
+                .duration(1000)  // Increased duration
+                .withListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animation: Animator) {}
+                    override fun onAnimationEnd(animation: Animator) {
+                        YoYo.with(Techniques.RubberBand)
+                            .duration(800)
+                            .playOn(nextGlass)
+                    }
+                    override fun onAnimationCancel(animation: Animator) {}
+                    override fun onAnimationRepeat(animation: Animator) {}
+                })
+                .playOn(nextGlass)
+
             if (waterCount < 8) {
                 waterCount++
                 updateWaterDisplay()
