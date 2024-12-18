@@ -4,10 +4,10 @@ import android.animation.Animator
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -18,20 +18,13 @@ import androidx.room.Room
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.group20.nutritiontrackingapp.adapter.ExerciseCustomRecyclerViewAdapter
-import com.group20.nutritiontrackingapp.adapter.MealCustomRecyclerViewAdapter
 import com.group20.nutritiontrackingapp.adapter.RecipeCustomRecyclerViewAdapter
 import com.group20.nutritiontrackingapp.databinding.ActivityMainBinding
 import com.group20.nutritiontrackingapp.databinding.ExerciseDialogBinding
 import com.group20.nutritiontrackingapp.db.AppDatabase
 import com.group20.nutritiontrackingapp.db.Exercise
-import com.group20.nutritiontrackingapp.db.Meal
 import com.group20.nutritiontrackingapp.db.Recipe
-import com.group20.nutritiontrackingapp.retrofit.ApiClient
-import com.group20.nutritiontrackingapp.retrofit.MealService
 import com.group20.nutritiontrackingapp.util.Constants
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Collections
@@ -56,6 +49,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     private val KEY_CALORIES_BURNED = "caloriesBurned"
     private val KEY_ACTIVE_MINUTES = "activeMinutes"
     private val KEY_LAST_EXERCISE_DATE = "lastExerciseDate"
+    private lateinit var waterSound: MediaPlayer
 
 
     // Database
@@ -80,6 +74,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        waterSound = MediaPlayer.create(this, R.raw.water)
 
         //Listeners
         binding.animatedText.setOnClickListener{
@@ -114,27 +109,33 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
         binding.addWaterButton.setOnClickListener {
 
-            val nextGlass = waterGlasses[waterCount]
-
-            //Animation
-            YoYo.with(Techniques.Bounce)
-                .duration(1000)  // Increased duration
-                .withListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator) {}
-                    override fun onAnimationEnd(animation: Animator) {
-                        YoYo.with(Techniques.RubberBand)
-                            .duration(800)
-                            .playOn(nextGlass)
-                    }
-                    override fun onAnimationCancel(animation: Animator) {}
-                    override fun onAnimationRepeat(animation: Animator) {}
-                })
-                .playOn(nextGlass)
-
             if (waterCount < 8) {
-                waterCount++
-                updateWaterDisplay()
-                saveWaterCount()
+                val nextGlass = waterGlasses[waterCount]
+
+                // Sound File
+                waterSound.start()
+
+                // Animation
+                YoYo.with(Techniques.Bounce)
+                    .duration(1000)  // Increased duration
+                    .withListener(object : Animator.AnimatorListener {
+                        override fun onAnimationStart(animation: Animator) {}
+                        override fun onAnimationEnd(animation: Animator) {
+                            YoYo.with(Techniques.RubberBand)
+                                .duration(800)
+                                .playOn(nextGlass)
+                        }
+
+                        override fun onAnimationCancel(animation: Animator) {}
+                        override fun onAnimationRepeat(animation: Animator) {}
+                    })
+                    .playOn(nextGlass)
+
+                if (waterCount < 8) {
+                    waterCount++
+                    updateWaterDisplay()
+                    saveWaterCount()
+                }
             }
         }
 
