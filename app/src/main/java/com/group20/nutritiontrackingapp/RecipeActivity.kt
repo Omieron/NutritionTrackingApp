@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
+import com.bumptech.glide.Glide
 import com.group20.nutritiontrackingapp.databinding.ActivityRecipeBinding
 import com.group20.nutritiontrackingapp.db.AppDatabase
 import com.group20.nutritiontrackingapp.db.Recipe
@@ -55,9 +56,11 @@ class RecipeActivity : AppCompatActivity() {
         }
     }
 
-    // Functions
     private fun displayRecipeDetails(recipe: Recipe) {
         binding.apply {
+            Glide.with(this@RecipeActivity)
+                .load(recipe.imgId)
+                .into(recipeImage)
             recipeImage.setImageResource(recipe.imgId)
             recipeTitle.text = recipe.title
             recipeInstructions.text = recipe.instructions
@@ -68,4 +71,5 @@ class RecipeActivity : AppCompatActivity() {
             recipePrepTime.text = "Prep Time: ${recipe.prepTime} min"
         }
     }
+
 }

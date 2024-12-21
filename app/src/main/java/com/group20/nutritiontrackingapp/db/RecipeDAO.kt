@@ -32,7 +32,7 @@ interface RecipeDAO {
     fun getRecipesByName(title:String):MutableList<Recipe>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllRecipes(recipes: ArrayList<Recipe>){
+    fun insertAllRecipes(recipes: List<Recipe>){
         recipes.forEach{
             insertRecipe(it)
         }

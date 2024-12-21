@@ -68,10 +68,14 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     // Gson Converter
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
 
     // External library for animation called  AndroidViewAnimations
     // https://radaso.com/blog/20-best-android-animation-ui-ux-libraries
     implementation ("com.daimajia.androidanimations:library:2.4@aar")
     implementation ("com.daimajia.easing:library:2.4@aar")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
 
 }

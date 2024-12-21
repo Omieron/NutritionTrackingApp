@@ -16,35 +16,47 @@ import com.group20.nutritiontrackingapp.db.Recipe
 
 class RecipeCustomRecyclerViewAdapter(
     private val context: Context,
-    private val recyclerItemValues: MutableList<Recipe>
-) : RecyclerView.Adapter<RecipeCustomRecyclerViewAdapter.RecyclerViewItemHolder>() {
+    val recyclerItemValues: MutableList<Recipe>
+) : RecyclerView.Adapter<RecipeCustomRecyclerViewAdapter.RecipeViewHolder>() {
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RecyclerViewItemHolder {
-        val inflator = LayoutInflater.from(viewGroup.context)
-        val itemView: View = inflator.inflate(R.layout.recipe_item, viewGroup, false)
-        return RecyclerViewItemHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.recipe_item, parent, false)
+        return RecipeViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerViewItemHolder, position: Int) {
-        val currentItem = recyclerItemValues[position]
+    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
+        val recipe = recyclerItemValues[position]
 
-        // Assign
-        holder.recipeTitle.text = currentItem.title
-        holder.recipeImage.setImageResource(currentItem.imgId)
+        // Bind data to views
+        holder.recipeTitle.text = recipe.title
+        holder.recipeImage.setImageResource(recipe.imgId)
 
-        // Listeners
+        // Show or hide low-calorie icon
+        if (recipe.totalCalories < 350) {
+            holder.lowCalorieIcon.visibility = View.VISIBLE
+        } else {
+            holder.lowCalorieIcon.visibility = View.GONE
+        }
+
+        // Set click listener for the item
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, RecipeActivity::class.java).apply {
-                putExtra("recipe_id", currentItem.id)
-            }
+            val intent = Intent(context, RecipeActivity::class.java)
+            intent.putExtra("recipe_id", recipe.id) // Pass recipe ID
+            intent.putExtra("recipe_title", recipe.title)
+            intent.putExtra("recipe_instructions", recipe.instructions)
+            intent.putExtra("recipe_calories", recipe.totalCalories)
+            intent.putExtra("recipe_img_url", recipe.imgId)
             context.startActivity(intent)
         }
     }
 
+
     override fun getItemCount(): Int = recyclerItemValues.size
 
-    inner class RecyclerViewItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val recipeTitle: TextView = itemView.findViewById(R.id.recipeTitle)
         val recipeImage: ImageView = itemView.findViewById(R.id.recipeImage)
+        val lowCalorieIcon: ImageView = itemView.findViewById(R.id.lowCalorieIcon)
     }
 }

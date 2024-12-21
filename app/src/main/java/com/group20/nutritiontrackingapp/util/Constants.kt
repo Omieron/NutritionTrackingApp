@@ -9,4 +9,7 @@ object Constants {
 
     // Retrofit for meals
     var baseUrl: String = "https://www.jsonkeeper.com/b/"
+
+    //Retrofit for recipe
+    var recipeUrl: String = "https://jsonkeeper.com/b/MQMP/"
 }
