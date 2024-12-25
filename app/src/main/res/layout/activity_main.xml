@@ -109,8 +109,9 @@
                     android:id="@+id/calorieSeekBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:progressTint="@color/Muted_Olive_Green"
-                    android:thumbTint="@color/Muted_Olive_Green" />
+                    android:max="2000"
+                    android:progressDrawable="@drawable/seekbar_background"
+                    android:progress="0"/>
 
                 <TextView
                     android:id="@+id/calorieText"

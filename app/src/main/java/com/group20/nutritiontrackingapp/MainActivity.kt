@@ -6,8 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -23,6 +26,7 @@ import com.group20.nutritiontrackingapp.databinding.ActivityMainBinding
 import com.group20.nutritiontrackingapp.databinding.ExerciseDialogBinding
 import com.group20.nutritiontrackingapp.db.AppDatabase
 import com.group20.nutritiontrackingapp.db.Exercise
+import com.group20.nutritiontrackingapp.db.Meal
 import com.group20.nutritiontrackingapp.db.Recipe
 import com.group20.nutritiontrackingapp.retrofitRecipe.ApiClient2
 import com.group20.nutritiontrackingapp.retrofitRecipe.RecipeService
@@ -34,6 +38,7 @@ import java.util.Locale
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.max
 
 class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.ExerciseAdapterInterface {
 
@@ -49,6 +54,10 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     private var activeMinutes: Int = 0
     private var waterCount = 0
     private lateinit var waterGlasses: List<ImageView>
+    private lateinit var handler: Handler
+    private lateinit var runnable: Runnable
+    private var progress = 0
+    private var maxProg = 0
     private val PREFS_NAME = "ExercisePrefs"
     private val KEY_CALORIES_BURNED = "caloriesBurned"
     private val KEY_ACTIVE_MINUTES = "activeMinutes"
@@ -90,6 +99,25 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
                 .duration(700)            // Duration in milliseconds
                 .playOn(binding.animatedText)
         }
+
+        //Seekbar Logic
+        binding.calorieSeekBar.isEnabled = false
+        binding.calorieSeekBar.thumb = null
+        val seekbarDuration = 1
+        maxProg = getCalories(db.mealDao().getAllMeals())
+        handler = Handler(Looper.getMainLooper())
+        runnable = object : Runnable {
+            override fun run() {
+                if(progress < maxProg) {
+                    binding.calorieSeekBar.progress = progress
+                    binding.calorieText.text = "${maxProg} / 2000 kcal"
+                    progress+=3
+                    handler.postDelayed(this, (seekbarDuration / maxProg).toLong())
+                }
+            }
+        }
+        handler.post(runnable)
+
 
         binding.profileButton.setOnClickListener {
             val intent = Intent(this, PersonActivity::class.java)
@@ -205,7 +233,12 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         binding.currentDate.text = currentDate
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        maxProg = getCalories(db.mealDao().getAllMeals())
+        progress = 0
+        handler.post(runnable)
+    }
 
     fun openMealActivity(mealType: String) {
         val intent = Intent(this, MealActivity::class.java)
@@ -424,6 +457,16 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
         // Update UI with loaded/reset values
         updateExerciseStats()
+    }
+
+    // Get meal Calories
+    private fun getCalories(meals : MutableList<Meal>):Int{
+        var sumOfCal = 0
+        if(meals.isNotEmpty())
+            for (meal in meals) {
+                sumOfCal += meal.calories
+            }
+        return sumOfCal
     }
 
     // Create Toast Message
