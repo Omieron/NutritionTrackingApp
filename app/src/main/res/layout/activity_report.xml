@@ -6,6 +6,7 @@
     android:background="@color/Soft_Eggshell_White">
 
     <FrameLayout
+        android:id="@+id/donutChartFrame"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_marginBottom="331dp"
@@ -13,6 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.group20.nutritiontrackingapp.chart.DonutChart
+            android:id="@+id/donutChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -34,21 +36,36 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="198dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="@string/macro_carb" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="106dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/baseline_purple_circle" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/macro_carb" />
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/carbRate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="%33"/>
+                android:text="@string/rate"/>
         </TableRow>
 
         <TableRow
@@ -56,21 +73,36 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="@string/macro_pro" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="106dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/baseline_red_circle" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/macro_pro" />
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/proRate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="%33"/>
+                android:text="@string/rate" />
         </TableRow>
 
         <TableRow
@@ -78,21 +110,36 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="@string/macro_fat" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="106dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/baseline_blue_circle" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/macro_fat" />
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/fatRate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="%33"/>
+                android:text="@string/rate" />
         </TableRow>
 
     </TableLayout>
