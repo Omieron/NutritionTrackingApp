@@ -100,6 +100,12 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
                 .playOn(binding.animatedText)
         }
 
+        // Caloric Goal
+        val person = db.personDao().getPersonById(1000)
+        val caloricGoal = person.calorieGoal ?: 2000  // default to 2000 if no goal set yet
+        binding.calorieText.text = "$maxProg / $caloricGoal kcal"
+        binding.calorieSeekBar.max = caloricGoal
+
         //Seekbar Logic
         binding.calorieSeekBar.isEnabled = false
         binding.calorieSeekBar.thumb = null
@@ -110,7 +116,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             override fun run() {
                 if(progress < maxProg) {
                     binding.calorieSeekBar.progress = progress
-                    binding.calorieText.text = "${maxProg} / 2000 kcal"
+                    binding.calorieText.text = "${maxProg} / $caloricGoal kcal"
                     progress+=3
                     handler.postDelayed(this, (seekbarDuration / maxProg).toLong())
                 }
@@ -231,6 +237,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
         // Set the title
         binding.currentDate.text = currentDate
+
     }
 
     override fun onResume() {
