@@ -78,4 +78,7 @@ dependencies {
     implementation ("com.daimajia.easing:library:2.4@aar")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
 
+    //confetti
+    implementation ("com.github.jinatonic.confetti:confetti:1.1.2")
+
 }

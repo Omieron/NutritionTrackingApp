@@ -4,13 +4,14 @@ import android.animation.Animator
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import com.github.jinatonic.confetti.CommonConfetti
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -112,12 +113,22 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         val seekbarDuration = 1
         maxProg = getCalories(db.mealDao().getAllMeals())
         handler = Handler(Looper.getMainLooper())
+
         runnable = object : Runnable {
             override fun run() {
                 if(progress < maxProg) {
                     binding.calorieSeekBar.progress = progress
                     binding.calorieText.text = "${maxProg} / $caloricGoal kcal"
-                    progress+=3
+                    progress += 3
+
+                    // I Added this check for confetti
+                    if (progress >= maxProg && maxProg >= caloricGoal) {
+                        CommonConfetti.rainingConfetti(
+                            binding.root,
+                            intArrayOf(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                        ).oneShot()
+                    }
+
                     handler.postDelayed(this, (seekbarDuration / maxProg).toLong())
                 }
             }
