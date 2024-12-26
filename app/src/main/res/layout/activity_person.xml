@@ -144,6 +144,7 @@
         android:text="@string/back_button_text"
         android:textColor="@color/Soft_Eggshell_White"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -80,7 +80,8 @@
             android:layout_weight="1"
             android:backgroundTint="@color/Deep_Mocha_Brown"
             android:text="@string/exercise_cancel_btn"
-            android:textColor="@color/Soft_Eggshell_White" />
+            android:textColor="@color/Soft_Eggshell_White"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
 
         <Button
             android:id="@+id/addButton"
@@ -90,8 +91,9 @@
             android:layout_weight="1"
             android:backgroundTint="@color/Muted_Olive_Green"
             android:padding="8dp"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:text="@string/exercise_add_btn"
-            android:textColor="@color/Soft_Eggshell_White" />
+            android:textColor="@color/Soft_Eggshell_White"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

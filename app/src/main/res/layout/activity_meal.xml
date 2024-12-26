@@ -79,7 +79,8 @@
             android:layout_weight="1"
             android:backgroundTint="@color/Muted_Olive_Green"
             android:text="@string/add_meal_text"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
 
         <Button
             android:id="@+id/backButton"
@@ -87,7 +88,9 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/Warm_Taupe_Brown"
             android:text="@string/back_button_text"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            />
     </LinearLayout>
 
     <LinearLayout

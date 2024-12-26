@@ -509,7 +509,8 @@
                         android:backgroundTint="@color/Warm_Taupe_Brown"
                         android:text="@string/add_exercise_text"
                         android:textColor="@color/Soft_Eggshell_White"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
 
                 </LinearLayout>
 
