@@ -1,7 +1,12 @@
 package com.group20.nutritiontrackingapp
 
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -16,6 +21,10 @@ class ReportActivity : AppCompatActivity() {
     // Variables
     private lateinit var binding: ActivityReportBinding
     private lateinit var donutChart: DonutChart
+    private lateinit var carbGestureDetector: GestureDetector
+    private lateinit var proteinGestureDetector: GestureDetector
+    private lateinit var fatGestureDetector: GestureDetector
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Binding section
@@ -40,10 +49,15 @@ class ReportActivity : AppCompatActivity() {
         if(meals.isNotEmpty())
             getMealsGiveMacros(meals)
 
+        // Gesture
+        setupGestureDetectors()
+        setupTouchListeners()
+
         //Listeners
         binding.reportBackBtn.setOnClickListener {
             finish()
         }
+
     }
 
     private fun getMealsGiveMacros(meals : MutableList<Meal>) {
@@ -72,4 +86,48 @@ class ReportActivity : AppCompatActivity() {
         fatText.text = String.format("%.2f", totalFat) + "g"
         DonutChart.updateData(carbsPercentage,proteinPercentage,fatPercentage)
     }
+
+    private fun setupGestureDetectors() {
+        carbGestureDetector = GestureDetector(this, CustomGestureListener("Carbohydrates"))
+        proteinGestureDetector = GestureDetector(this, CustomGestureListener("Protein"))
+        fatGestureDetector = GestureDetector(this, CustomGestureListener("Fat"))
+    }
+
+    private fun setupTouchListeners() {
+        binding.apply {
+            val carbLayout = findViewById<ImageView>(R.id.imageView2) as View
+            val proteinLayout = findViewById<ImageView>(R.id.imageView8) as View
+            val fatLayout = findViewById<ImageView>(R.id.imageView7) as View
+
+            carbLayout.setOnTouchListener { v, event ->
+                carbGestureDetector.onTouchEvent(event)
+                true
+            }
+
+            proteinLayout.setOnTouchListener { v, event ->
+                proteinGestureDetector.onTouchEvent(event)
+                true
+            }
+
+            fatLayout.setOnTouchListener { v, event ->
+                fatGestureDetector.onTouchEvent(event)
+                true
+            }
+        }
+    }
+
+    private inner class CustomGestureListener(private val macroType: String) : GestureDetector.SimpleOnGestureListener() {
+
+        override fun onDoubleTap(e: MotionEvent): Boolean {
+            val message = when (macroType) {
+                "Carbohydrates" -> "Carbs are your body's main source of energy. Your daily intake is ${binding.carbRate.text}"
+                "Protein" -> "Protein is essential for muscle building and repair. Your daily intake is ${binding.proRate.text}"
+                "Fat" -> "Healthy fats are crucial for nutrient absorption. Your daily intake is ${binding.fatRate.text}"
+                else -> ""
+            }
+            Toast.makeText(this@ReportActivity, message, Toast.LENGTH_LONG).show()
+            return true
+        }
+    }
+
 }
