@@ -28,6 +28,7 @@ import com.group20.nutritiontrackingapp.databinding.ExerciseDialogBinding
 import com.group20.nutritiontrackingapp.db.AppDatabase
 import com.group20.nutritiontrackingapp.db.Exercise
 import com.group20.nutritiontrackingapp.db.Meal
+import com.group20.nutritiontrackingapp.db.Person
 import com.group20.nutritiontrackingapp.db.Recipe
 import com.group20.nutritiontrackingapp.retrofitRecipe.ApiClient2
 import com.group20.nutritiontrackingapp.retrofitRecipe.RecipeService
@@ -101,9 +102,11 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
                 .playOn(binding.animatedText)
         }
 
-        // Caloric Goal
+        var caloricGoal = 2000;
         val person = db.personDao().getPersonById(1000)
-        val caloricGoal = person.calorieGoal ?: 2000  // default to 2000 if no goal set yet
+        if (db.personDao().getPersonById(1000) !== null) {
+            caloricGoal = person.calorieGoal
+        }
         binding.calorieText.text = "$maxProg / $caloricGoal kcal"
         binding.calorieSeekBar.max = caloricGoal
 
