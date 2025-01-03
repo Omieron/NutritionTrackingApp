@@ -256,8 +256,11 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
     override fun onResume() {
         super.onResume()
-        maxProg = getCalories(db.mealDao().getAllMeals())
+        val mealList = db.mealDao().getAllMeals()
+        maxProg = getCalories(mealList)
         progress = 0
+        setCaloriesForMeals(mealList)
+        setMacroTypeForMeals(mealList)
         handler.post(runnable)
     }
 
@@ -364,6 +367,39 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             // Clear selection
             clearExerciseDialog()
         }
+    }
+
+    private fun setCaloriesForMeals(mealList: List<Meal>){
+        var sumBreakfast = 0
+        var sumLunch = 0
+        var sumDinner = 0
+        var sumSnack = 0
+        for(meal in mealList){
+            when(meal.mealType){
+                "Breakfast" -> sumBreakfast += meal.calories;
+                "Lunch" -> sumLunch += meal.calories;
+                "Dinner" -> sumDinner += meal.calories;
+                "Snack" -> sumSnack += meal.calories;
+            }
+        }
+        binding.breakfastCalories.text = sumBreakfast.toString() + " kcal"
+        binding.lunchCalories.text = sumLunch.toString() + " kcal"
+        binding.dinnerCalories.text = sumDinner.toString() + " kcal"
+        binding.snackCalories.text = sumSnack.toString() + " kcal"
+    }
+
+    private fun setMacroTypeForMeals(mealList: List<Meal>){
+        var sumPro = 0.0
+        var sumCarb = 0.0
+        var sumFat = 0.0
+        for(meal in mealList){
+            sumPro += meal.protein
+            sumCarb += meal.carbs
+            sumFat += meal.fat
+        }
+        binding.carbStats.text = "Carbonhydrate: " + sumCarb.toString() + " g"
+        binding.proteinStats.text = "Protein: " + sumPro.toString() + " g"
+        binding.fatStats.text = "Fat: " + sumFat.toString() + " g"
     }
 
     private fun clearExerciseDialog(){

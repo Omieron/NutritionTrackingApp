@@ -89,6 +89,7 @@ class MealActivity : AppCompatActivity() {
         binding.addMealButton.setOnClickListener {
             val selectedMeal = mealAdapter.getSelectedMeal()
             if (selectedMeal != null) {
+                selectedMeal.mealType = mealTitle
                 db.mealDao().insertMeal(selectedMeal)
                 Toast.makeText(
                     this,
