@@ -353,10 +353,14 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             selectedExercise?.let { exercise ->
                 exerciseTimeMinutes = 30
                 val caloriesBurned = (exercise.caloriesPerHour * exerciseTimeMinutes) / 60
+                val newCalories = max(getCalories(db.mealDao().getAllMeals()) - caloriesBurned, 0)
+                animateSeekBarChange(getCalories(db.mealDao().getAllMeals()), newCalories)
+
 
                 // Update totals
                 totalCaloriesBurned += caloriesBurned
                 activeMinutes += exerciseTimeMinutes
+                saveExerciseStats()
 
                 // Update UI
                 updateExerciseStats()
@@ -492,6 +496,32 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         binding.activeMinutesText.text = "Active Minutes: $activeMinutes min"
         saveExerciseStats()
     }
+
+    private fun animateSeekBarChange(startValue: Int, endValue: Int, duration: Long = 1000) {
+        val step = if (endValue > startValue) (endValue - startValue) / 50 else (startValue - endValue) / 50
+        val delay = duration / 50
+
+        val handler = Handler(Looper.getMainLooper())
+        var currentValue = startValue
+
+        val runnable = object : Runnable {
+            override fun run() {
+                if ((endValue > startValue && currentValue < endValue) || (endValue < startValue && currentValue > endValue)) {
+                    currentValue = if (endValue > startValue) currentValue + step else currentValue - step
+                    if ((endValue > startValue && currentValue > endValue) || (endValue < startValue && currentValue < endValue)) {
+                        currentValue = endValue
+                    }
+                    binding.calorieSeekBar.progress = currentValue
+                    binding.calorieText.text = "$currentValue / $caloricGoal kcal"
+                    handler.postDelayed(this, delay)
+                }
+            }
+        }
+        handler.post(runnable)
+    }
+
+
+
 
     private fun updateWaterDisplay() {
         waterGlasses.forEachIndexed { index, glass ->
