@@ -8,123 +8,129 @@
     android:background="@color/Soft_Eggshell_White"
     tools:context=".PersonActivity">
 
-    <LinearLayout
-        android:id="@+id/formContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        android:background="@color/Pale_Sage_Green"
-        android:elevation="1dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@id/backBtn"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="16dp"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <EditText
-            android:id="@+id/nameTv"
+        <LinearLayout
+            android:id="@+id/formContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/person_name_hint"
-            android:inputType="text"
-            android:minHeight="60dp"
-            android:paddingHorizontal="16dp"
-            android:textColor="@color/Deep_Mocha_Brown"
-            android:textColorHint="@color/Warm_Taupe_Brown" />
+            android:layout_margin="16dp"
+            android:background="@color/Pale_Sage_Green"
+            android:elevation="1dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <EditText
-            android:id="@+id/AgeTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/person_age_hint"
-            android:inputType="number"
-            android:minHeight="60dp"
-            android:paddingHorizontal="16dp"
-            android:textColor="@color/Deep_Mocha_Brown"
-            android:textColorHint="@color/Warm_Taupe_Brown" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="16dp"
+                tools:srcCompat="@tools:sample/avatars" />
 
-        <EditText
-            android:id="@+id/WeightTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/person_weight_hint"
-            android:inputType="text"
-            android:minHeight="60dp"
-            android:paddingHorizontal="16dp"
-            android:textColor="@color/Deep_Mocha_Brown"
-            android:textColorHint="@color/Warm_Taupe_Brown" />
-
-        <EditText
-            android:id="@+id/HeightTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/person_height_hint"
-            android:inputType="text"
-            android:minHeight="60dp"
-            android:paddingHorizontal="16dp"
-            android:textColor="@color/Deep_Mocha_Brown"
-            android:textColorHint="@color/Warm_Taupe_Brown" />
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <RadioButton
-                android:id="@+id/femaleRb"
-                android:layout_width="0dp"
+            <EditText
+                android:id="@+id/nameTv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/female_radio_button"
-                android:textColor="@color/Deep_Mocha_Brown" />
+                android:background="@null"
+                android:hint="@string/person_name_hint"
+                android:inputType="text"
+                android:minHeight="60dp"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textColorHint="@color/Warm_Taupe_Brown" />
 
-            <RadioButton
-                android:id="@+id/MaleRb"
-                android:layout_width="0dp"
+            <EditText
+                android:id="@+id/AgeTv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/male_radio_button"
-                android:textColor="@color/Deep_Mocha_Brown" />
-        </RadioGroup>
+                android:background="@null"
+                android:hint="@string/person_age_hint"
+                android:inputType="number"
+                android:minHeight="60dp"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textColorHint="@color/Warm_Taupe_Brown" />
 
-        <EditText
-            android:id="@+id/calGoalTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/person_caloric_hint"
-            android:inputType="text"
-            android:minHeight="60dp"
-            android:paddingHorizontal="16dp"
-            android:textColor="@color/Deep_Mocha_Brown"
-            android:textColorHint="@color/Warm_Taupe_Brown" />
+            <EditText
+                android:id="@+id/WeightTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/person_weight_hint"
+                android:inputType="text"
+                android:minHeight="60dp"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textColorHint="@color/Warm_Taupe_Brown" />
 
-        <EditText
-            android:id="@+id/proteinGoalTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/person_protein_hint"
-            android:inputType="text"
-            android:minHeight="60dp"
-            android:paddingHorizontal="16dp"
-            android:textColor="@color/Deep_Mocha_Brown"
-            android:textColorHint="@color/Warm_Taupe_Brown" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/HeightTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/person_height_hint"
+                android:inputType="text"
+                android:minHeight="60dp"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textColorHint="@color/Warm_Taupe_Brown" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <RadioButton
+                    android:id="@+id/femaleRb"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/female_radio_button"
+                    android:textColor="@color/Deep_Mocha_Brown" />
+
+                <RadioButton
+                    android:id="@+id/MaleRb"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/male_radio_button"
+                    android:textColor="@color/Deep_Mocha_Brown" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/calGoalTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/person_caloric_hint"
+                android:inputType="text"
+                android:minHeight="60dp"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textColorHint="@color/Warm_Taupe_Brown" />
+
+            <EditText
+                android:id="@+id/proteinGoalTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/person_protein_hint"
+                android:inputType="text"
+                android:minHeight="60dp"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/Deep_Mocha_Brown"
+                android:textColorHint="@color/Warm_Taupe_Brown" />
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/backBtn"
