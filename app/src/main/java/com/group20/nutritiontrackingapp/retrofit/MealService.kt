@@ -6,7 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MealService {
-
     @GET("QQO2")
     fun getMeals(): Call<List<Meal>>
 }

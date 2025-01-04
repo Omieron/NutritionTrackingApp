@@ -113,5 +113,4 @@ class ExerciseCustomRecyclerViewAdapter(
         val exerciseName: TextView = itemView.findViewById(R.id.exerciseName)
         val exerciseCalories: TextView = itemView.findViewById(R.id.exerciseCalories)
     }
-
 }

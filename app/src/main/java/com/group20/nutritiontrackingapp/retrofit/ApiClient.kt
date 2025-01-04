@@ -8,12 +8,10 @@ import javax.net.ssl.SSLSession
 
 object ApiClient {
     private var retrofit: Retrofit? = null
-
     // Some PCs cannot access json.keeper so with this, We remove the SSL Check
     val okHttpClient = OkHttpClient.Builder()
         .hostnameVerifier { hostname: String, session: SSLSession -> true }  // SSL is closed
         .build()
-
     fun getClient(): Retrofit {
         if (retrofit == null)
             retrofit = Retrofit.Builder()
@@ -21,7 +19,6 @@ object ApiClient {
                 .client(okHttpClient) // implement removing SSL Check
                 .addConverterFactory(GsonConverterFactory.create()) //retrofit will understand as a converter GSON converter will be used
                 .build()
-
         return retrofit as Retrofit
     }
 }

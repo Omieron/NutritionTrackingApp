@@ -1,17 +1,20 @@
 package com.group20.nutritiontrackingapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.group20.nutritiontrackingapp.databinding.ActivityPersonBinding
 import com.group20.nutritiontrackingapp.db.AppDatabase
 import com.group20.nutritiontrackingapp.db.Person
 import com.group20.nutritiontrackingapp.db.PersonDAO
 import com.group20.nutritiontrackingapp.util.Constants
+import com.group20.nutritiontrackingapp.worker.CustomWorkerSavePerson
 
 class PersonActivity : AppCompatActivity() {
 
@@ -41,7 +44,6 @@ class PersonActivity : AppCompatActivity() {
 
         //DB
         personDao = db.personDao()
-
         checkExistingData()
 
         // Listeners
@@ -122,18 +124,22 @@ class PersonActivity : AppCompatActivity() {
             calorieGoal = binding.calGoalTv.text.toString().toInt(),
             proteinGoal = binding.proteinGoalTv.text.toString().toDouble()
         )
+        val workManager = WorkManager.getInstance(this)
+        val inputData = Data.Builder()
+            .putInt("id", person.id)
+            .putString("name", person.name)
+            .putInt("age", person.age)
+            .putDouble("weight", person.weight)
+            .putInt("height", person.height)
+            .putString("sex", person.sex.toString())
+            .putInt("calorieGoal", person.calorieGoal)
+            .putDouble("proteinGoal", person.proteinGoal)
+            .build()
+        val savePersonWork = OneTimeWorkRequestBuilder<CustomWorkerSavePerson>()
+            .setInputData(inputData)
+            .build()
 
-        // Save to database
-        val existingPerson = personDao.getPersonById(1000)
-        if (existingPerson == null) {
-            personDao.insertPerson(person)
-            Log.d("PersonActivity", "Inserted new person")
-        } else {
-            personDao.updatePerson(person)
-            Log.d("PersonActivity", "Updated existing person")
-        }
-
-        finish()
+        workManager.enqueue(savePersonWork)
+        Log.d("PersonActivity", "Worker triggered to save person")
     }
-
 }

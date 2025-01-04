@@ -20,7 +20,6 @@ import com.group20.nutritiontrackingapp.util.Constants
 class ReportActivity : AppCompatActivity() {
     // Variables
     private lateinit var binding: ActivityReportBinding
-    private lateinit var donutChart: DonutChart
     private lateinit var carbGestureDetector: GestureDetector
     private lateinit var proteinGestureDetector: GestureDetector
     private lateinit var fatGestureDetector: GestureDetector
@@ -29,7 +28,6 @@ class ReportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Binding section
         binding = ActivityReportBinding.inflate(layoutInflater)
-        //donutChart = findViewById(R.id.donutChart)
         setContentView(binding.root)
         enableEdgeToEdge()
 
@@ -43,7 +41,6 @@ class ReportActivity : AppCompatActivity() {
                 .fallbackToDestructiveMigration()
                 .build()
         }
-
         val meals = db.mealDao().getAllMeals()
 
         if(meals.isNotEmpty())
@@ -57,14 +54,12 @@ class ReportActivity : AppCompatActivity() {
         binding.reportBackBtn.setOnClickListener {
             finish()
         }
-
     }
 
     private fun getMealsGiveMacros(meals : MutableList<Meal>) {
         var totalProtein = 0.0
         var totalCarbs = 0.0
         var totalFat = 0.0
-
         val carbText : TextView = findViewById(R.id.carbRate)
         val proText : TextView = findViewById(R.id.proRate)
         val fatText : TextView = findViewById(R.id.fatRate)
@@ -76,7 +71,6 @@ class ReportActivity : AppCompatActivity() {
         }
 
         var totalMacros = totalProtein + totalCarbs + totalFat
-
         val proteinPercentage = (totalProtein / totalMacros * 100).toFloat()
         val carbsPercentage = (totalCarbs / totalMacros * 100).toFloat()
         val fatPercentage = (totalFat / totalMacros * 100).toFloat()
@@ -129,5 +123,4 @@ class ReportActivity : AppCompatActivity() {
             return true
         }
     }
-
 }

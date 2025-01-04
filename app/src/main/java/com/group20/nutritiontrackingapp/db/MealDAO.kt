@@ -10,7 +10,6 @@ import com.group20.nutritiontrackingapp.util.Constants
 
 @Dao
 interface MealDAO {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMeal(meal: Meal):Long
 

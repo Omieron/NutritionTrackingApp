@@ -10,7 +10,6 @@ import com.group20.nutritiontrackingapp.util.Constants
 
 @Dao
 interface PersonDAO {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPerson(person: Person):Long
 
@@ -25,6 +24,4 @@ interface PersonDAO {
 
     @Query("SELECT * FROM ${Constants.PERSON_TABLE} WHERE name LIKE :name")
     fun getPersonByName(name:String):MutableList<Person>
-
-
 }

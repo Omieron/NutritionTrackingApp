@@ -1,17 +1,12 @@
 package com.group20.nutritiontrackingapp.db
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.group20.nutritiontrackingapp.util.Constants
 import com.google.gson.annotations.SerializedName
 
-@Entity(
-    tableName = Constants.MEAL_TABLE,
-)
+@Entity(tableName = Constants.MEAL_TABLE)
 class Meal(
-
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     var id: Int = 0,

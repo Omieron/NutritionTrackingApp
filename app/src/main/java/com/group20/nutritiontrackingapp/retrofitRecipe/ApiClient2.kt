@@ -6,16 +6,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.net.ssl.SSLSession
 
-
 object ApiClient2 {
     private var retrofit: Retrofit? = null
-
     val okHttpClient = OkHttpClient.Builder()
         .hostnameVerifier { hostname: String, session: SSLSession -> true }  // SSL is closed
         .build()
-
-
-
     fun getRetrofit(): Retrofit {
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
@@ -26,6 +21,4 @@ object ApiClient2 {
         }
         return retrofit as Retrofit
     }
-
-
 }

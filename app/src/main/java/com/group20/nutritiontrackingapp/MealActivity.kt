@@ -24,7 +24,6 @@ class MealActivity : AppCompatActivity() {
     private lateinit var mealService: MealService
     private lateinit var mealAdapter: MealCustomRecyclerViewAdapter
     private var mealList: MutableList<Meal> = mutableListOf()
-
     private val db: AppDatabase by lazy {
         Room.databaseBuilder(
             this,
@@ -58,7 +57,6 @@ class MealActivity : AppCompatActivity() {
         // Initialize Retrofit service
         mealService = ApiClient.getClient().create(MealService::class.java)
         val request = mealService.getMeals()
-
         request.enqueue(object : Callback<List<Meal>> {
             override fun onFailure(call: Call<List<Meal>>, t: Throwable) {
                 Log.e("API_ERROR", "Failed to fetch meals", t)
@@ -84,7 +82,6 @@ class MealActivity : AppCompatActivity() {
         })
 
         //Listeners
-
         // Add button click listener
         binding.addMealButton.setOnClickListener {
             val selectedMeal = mealAdapter.getSelectedMeal()

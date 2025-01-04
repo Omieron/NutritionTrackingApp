@@ -10,6 +10,6 @@ class Exercise(
     var id: Int = 0,
     var name: String,
     var caloriesPerHour: Int,
-    var category: String,  // can be "Light", "Moderate", "Intense"
+    var category: String,
     var description: String
 )
