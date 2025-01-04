@@ -59,9 +59,9 @@ class RecipeActivity : AppCompatActivity() {
     private fun displayRecipeDetails(recipe: Recipe) {
         binding.apply {
             Glide.with(this@RecipeActivity)
-                .load(recipe.imgId)
+                .load(recipe.imgUrl)
                 .into(recipeImage)
-            recipeImage.setImageResource(recipe.imgId)
+            //recipeImage.setImageResource(recipe.imgId)
             recipeTitle.text = recipe.title
             recipeInstructions.text = recipe.instructions
             recipeCalories.text = "Calories: ${recipe.totalCalories}"

@@ -5,6 +5,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface RecipeService {
-    @GET("MQMP") // The endpoint for your JSON
+    @GET("FXYQ") // The endpoint for your JSON    MQMP old one
     fun getRecipes(): Call<List<Recipe>>
 }

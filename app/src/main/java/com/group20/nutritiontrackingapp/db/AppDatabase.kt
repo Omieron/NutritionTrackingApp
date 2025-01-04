@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.group20.nutritiontrackingapp.util.Constants
 
-@Database(entities = [Recipe::class, Exercise::class, Person::class, Meal::class], version = 7)
+@Database(entities = [Recipe::class, Exercise::class, Person::class, Meal::class], version = 8)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun recipeDao(): RecipeDAO
     abstract fun exerciseDao(): ExerciseDAO

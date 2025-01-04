@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.group20.nutritiontrackingapp.R
 import com.group20.nutritiontrackingapp.RecipeActivity
 import com.group20.nutritiontrackingapp.db.Recipe
@@ -30,7 +31,11 @@ class RecipeCustomRecyclerViewAdapter(
 
         // Bind data to views
         holder.recipeTitle.text = recipe.title
-        holder.recipeImage.setImageResource(recipe.imgId)
+        //holder.recipeImage.setImageResource(recipe.imgId)
+        Glide.with(context)
+            .load(recipe.imgUrl)
+            .into(holder.recipeImage)
+
 
         // Show or hide low-calorie icon
         if (recipe.totalCalories < 350) {
@@ -46,7 +51,7 @@ class RecipeCustomRecyclerViewAdapter(
             intent.putExtra("recipe_title", recipe.title)
             intent.putExtra("recipe_instructions", recipe.instructions)
             intent.putExtra("recipe_calories", recipe.totalCalories)
-            intent.putExtra("recipe_img_url", recipe.imgId)
+            //intent.putExtra("recipe_img_url", recipe.imgId)
             context.startActivity(intent)
         }
     }

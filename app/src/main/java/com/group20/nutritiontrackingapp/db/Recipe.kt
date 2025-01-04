@@ -24,12 +24,12 @@ class Recipe(
     var totalFat: Double,
     @SerializedName("prepTime")
     var prepTime: Int,
-    @SerializedName("imgId")
-    var imgId: Int
+    @SerializedName("imgUrl")
+    var imgUrl: String
 )
 {
     override fun toString(): String {
-        return "Recipe(id=$id, title='$title', instructions='$instructions', totalCalories=$totalCalories, totalProtein=$totalProtein, totalCarbs=$totalCarbs, totalFat=$totalFat, prepTime=$prepTime, imgId=$imgId)"
+        return "Recipe(id=$id, title='$title', instructions='$instructions', totalCalories=$totalCalories, totalProtein=$totalProtein, totalCarbs=$totalCarbs, totalFat=$totalFat, prepTime=$prepTime, imgUrl=$imgUrl)"
     }
 }
 
