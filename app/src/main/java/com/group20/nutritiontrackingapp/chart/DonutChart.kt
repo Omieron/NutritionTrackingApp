@@ -24,12 +24,10 @@ class DonutChart(context: Context, attrs: AttributeSet?) : View(context, attrs) 
     )
 
     companion object {
-
         private var data = listOf(33f, 33f, 33f)
 
         fun updateData(carb: Float, pro: Float, fat: Float) {
             data = listOf(carb, pro, fat)
-
         }
     }
 
@@ -39,9 +37,9 @@ class DonutChart(context: Context, attrs: AttributeSet?) : View(context, attrs) 
         val total = data.sum()
         var startAngle = 0f
 
-        val rect = RectF(150f, 150f, width - 150f, height - 150f)
-
-        val strokeWidth = 170f
+        // Çemberin boyutlarını ayarla
+        val rect = RectF(100f, 100f, width - 100f, height - 100f)
+        val strokeWidth = 100f
         paint.strokeWidth = strokeWidth
 
         for (i in data.indices) {

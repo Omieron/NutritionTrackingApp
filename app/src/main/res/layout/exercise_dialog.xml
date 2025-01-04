@@ -58,8 +58,8 @@
             android:background="@color/Warm_Taupe_Brown"
             android:clipToPadding="false"
             android:padding="4dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp" />
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp" />
 
     </FrameLayout>
 

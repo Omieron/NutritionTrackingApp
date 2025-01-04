@@ -15,8 +15,8 @@
         android:id="@+id/searchContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/Pale_Sage_Green"
         android:elevation="4dp"
         android:padding="8dp"
@@ -40,7 +40,7 @@
         android:id="@+id/resultsContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/Pale_Sage_Green"
         android:elevation="4dp"
@@ -63,7 +63,7 @@
         android:id="@+id/buttonContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,12 +95,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="403dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/searchContainer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,14 +107,15 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="124dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/Pale_Sage_Green"
             android:gravity="center"
             android:text="TextView"
             android:textColor="@color/Deep_Mocha_Brown"
-            android:textSize="40sp" />
+            android:textSize="24sp"
+            android:padding="16dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
