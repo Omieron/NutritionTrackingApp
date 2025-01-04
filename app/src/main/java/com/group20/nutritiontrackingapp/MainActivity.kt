@@ -254,6 +254,8 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         // Set the title
         binding.currentDate.text = currentDate
 
+        loadExerciseStats()
+
     }
 
     override fun onResume() {
@@ -401,9 +403,9 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             sumCarb += meal.carbs
             sumFat += meal.fat
         }
-        binding.carbStats.text = "Carbonhydrate: " + sumCarb.toString() + " g"
-        binding.proteinStats.text = "Protein: " + sumPro.toString() + " g"
-        binding.fatStats.text = "Fat: " + sumFat.toString() + " g"
+        binding.carbStats.text = "Carb: %.2f g".format(sumCarb)
+        binding.proteinStats.text = "Protein: %.2f g".format(sumPro)
+        binding.fatStats.text = "Fat: %.2f g".format(sumFat)
     }
 
     private fun clearExerciseDialog(){
