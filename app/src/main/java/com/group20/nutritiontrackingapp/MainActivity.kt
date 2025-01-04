@@ -353,8 +353,13 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             selectedExercise?.let { exercise ->
                 exerciseTimeMinutes = 30
                 val caloriesBurned = (exercise.caloriesPerHour * exerciseTimeMinutes) / 60
-                val newCalories = max(getCalories(db.mealDao().getAllMeals()) - caloriesBurned, 0)
-                animateSeekBarChange(getCalories(db.mealDao().getAllMeals()), newCalories)
+
+                // Subtract calories burned from the current maxProg
+                maxProg = max(maxProg - caloriesBurned, 0)
+
+                // Update the SeekBar and Text
+                animateSeekBarChange(binding.calorieSeekBar.progress, maxProg)
+
 
 
                 // Update totals
