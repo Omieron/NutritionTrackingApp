@@ -65,7 +65,8 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     private val KEY_ACTIVE_MINUTES = "activeMinutes"
     private val KEY_LAST_EXERCISE_DATE = "lastExerciseDate"
     private lateinit var waterSound: MediaPlayer
-    private val recipeService by lazy { ApiClient2.getRetrofit().create(RecipeService::class.java) }
+    private lateinit var recipeService : RecipeService
+
 
     // Database
     private val db: AppDatabase by lazy {
@@ -83,6 +84,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+
         // Binding section
         bindingForDialog = ExerciseDialogBinding.inflate(layoutInflater)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -90,7 +92,10 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         adapter = RecipeCustomRecyclerViewAdapter(this, mutableListOf())
         binding.recipeRecyclerView.adapter = adapter
-        // fetchRecipes()
+        if(db.recipeDao().getAllRecipes().isEmpty())
+            fetchRecipes()
+        else getData()
+
         waterSound = MediaPlayer.create(this, R.raw.water)
 
         //Listeners
@@ -136,6 +141,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         }
         handler.post(runnable)
 
+
         binding.profileButton.setOnClickListener {
             val intent = Intent(this, PersonActivity::class.java)
             startActivity(intent)
@@ -159,7 +165,9 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         binding.layoutLunch.setOnClickListener(clickListener)
         binding.layoutDinner.setOnClickListener(clickListener)
         binding.layoutSnack.setOnClickListener(clickListener)
+
         binding.addWaterButton.setOnClickListener {
+
             if (waterCount < 8) {
                 val nextGlass = waterGlasses[waterCount]
 
@@ -176,10 +184,12 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
                                 .duration(800)
                                 .playOn(nextGlass)
                         }
+
                         override fun onAnimationCancel(animation: Animator) {}
                         override fun onAnimationRepeat(animation: Animator) {}
                     })
                     .playOn(nextGlass)
+
                 if (waterCount < 8) {
                     waterCount++
                     updateWaterDisplay()
@@ -203,7 +213,6 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             updateExerciseStats()
             true
         }
-        getData()
 
         //Dialog
         binding.addExerciseButton.setOnClickListener{
@@ -244,6 +253,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
         // Set the title
         binding.currentDate.text = currentDate
+
     }
 
     override fun onResume() {
@@ -279,12 +289,15 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     }
 
     private fun fetchRecipes() {
-        recipeService.getRecipes().enqueue(object : Callback<List<Recipe>> {
+        recipeService = ApiClient2.getClient().create(RecipeService::class.java)
+        val request = recipeService.getRecipes()
+        request.enqueue(object : Callback<List<Recipe>> {
             override fun onResponse(call: Call<List<Recipe>>, response: Response<List<Recipe>>) {
                 if (response.isSuccessful && response.body() != null) {
                     val recipes = response.body()!!
                     db.recipeDao().insertAllRecipes(recipes) // Save to Room
-                    updateRecyclerView(db.recipeDao().getAllRecipes()) // Load from Room
+                    getData()
+                    //updateRecyclerView(db.recipeDao().getAllRecipes()) // Load from Room
                 } else {
                     showErrorToast("Failed to fetch recipes. Error code: ${response.code()}")
                 }
@@ -294,7 +307,6 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             }
         })
     }
-
     private fun updateRecyclerView(recipes: List<Recipe>) {
         adapter?.apply {
             recyclerItemValues.clear()
@@ -302,7 +314,6 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             notifyDataSetChanged()
         }
     }
-
     private fun showErrorToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
@@ -318,9 +329,11 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         // Setup search functionality
         bindingForDialog.searchExercise.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 exerciseAdapter?.filter(s.toString())
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -344,7 +357,6 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
                 // Update UI
                 updateExerciseStats()
                 createToastMessage("Added ${exercise.name}")
-
                 // Clear selection
                 clearExerciseDialog()
             }
@@ -439,6 +451,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             category = "Light",
             description = "Mind-body exercise for flexibility"
         ))
+
         db.exerciseDao().insertAllExercises(exercises)
     }
 

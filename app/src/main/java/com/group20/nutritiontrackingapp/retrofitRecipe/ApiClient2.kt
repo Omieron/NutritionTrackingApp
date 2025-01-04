@@ -11,7 +11,7 @@ object ApiClient2 {
     val okHttpClient = OkHttpClient.Builder()
         .hostnameVerifier { hostname: String, session: SSLSession -> true }  // SSL is closed
         .build()
-    fun getRetrofit(): Retrofit {
+    fun getClient(): Retrofit {
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
                 .baseUrl(Constants.recipeUrl)
