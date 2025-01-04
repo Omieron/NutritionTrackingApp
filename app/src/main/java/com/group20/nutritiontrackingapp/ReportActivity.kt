@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.room.Room
 import com.group20.nutritiontrackingapp.chart.DonutChart
 import com.group20.nutritiontrackingapp.databinding.ActivityReportBinding
