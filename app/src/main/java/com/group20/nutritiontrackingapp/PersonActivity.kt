@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequestBuilder
@@ -15,12 +16,14 @@ import com.group20.nutritiontrackingapp.db.Person
 import com.group20.nutritiontrackingapp.db.PersonDAO
 import com.group20.nutritiontrackingapp.util.Constants
 import com.group20.nutritiontrackingapp.worker.CustomWorkerSavePerson
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class PersonActivity : AppCompatActivity() {
 
     // Variables
     lateinit var binding: ActivityPersonBinding
-    private lateinit var personDao: PersonDAO
+    private lateinit var person: Person
     private var isFirstTime = true
 
     private val db: AppDatabase by lazy {
@@ -38,44 +41,51 @@ class PersonActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Binding section
+        // Binding Section
         binding = ActivityPersonBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //DB
-        personDao = db.personDao()
-        checkExistingData()
+        // DB Query
+        person = db.personDao().getPersonById(1000)!!
+        populateFields(person)
 
-        // Listeners
+        binding.femaleRb.setOnClickListener{
+            binding.imageView3.setImageResource(R.drawable.baseline_person_female_24)
+        }
+
+        binding.MaleRb.setOnClickListener{
+            binding.imageView3.setImageResource(R.drawable.baseline_person_male_24)
+        }
+
+        // Back Button Listener
         binding.backBtn.setOnClickListener {
             if (validateFields()) {
                 saveData()
             }
-            finish()
+            Toast.makeText(this@PersonActivity, "The data is updating", Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch {
+                delay(1000) // 1 saniye bekleme
+                finish() // Mevcut aktiviteyi kapatmak için
+            }
         }
+
     }
 
-    private fun checkExistingData() {
-        val person = personDao.getPersonById(1000)
-        Log.d("PersonActivity", "Checking existing data: ${person?.toString() ?: "No person found"}")
-        person?.let {
-            // Fill in the fields with existing data
-            binding.apply {
-                nameTv.setText(it.name)
-                AgeTv.setText(it.age.toString())
-                WeightTv.setText(it.weight.toString())
-                HeightTv.setText(it.height.toString())
-                calGoalTv.setText(it.calorieGoal.toString())
-                proteinGoalTv.setText(it.proteinGoal.toString())
-                if (it.sex == 'F') {
-                    femaleRb.isChecked = true
-                    binding.imageView3.setImageResource(R.drawable.baseline_person_female_24)
-                }
-                else {
-                    MaleRb.isChecked = true
-                    binding.imageView3.setImageResource(R.drawable.baseline_person_male_24)
-                }
-            }
+    private fun populateFields(person: Person) {
+        binding.nameTv.setText(person.name)
+        binding.AgeTv.setText(person.age.toString())
+        binding.WeightTv.setText(person.weight.toString())
+        binding.HeightTv.setText(person.height.toString())
+        binding.calGoalTv.setText(person.calorieGoal.toString())
+        binding.proteinGoalTv.setText(person.proteinGoal.toString())
+
+        // Set gender radio button and image
+        if (person.sex == 'F') {
+            binding.femaleRb.isChecked = true
+            binding.imageView3.setImageResource(R.drawable.baseline_person_female_24)
+        } else {
+            binding.MaleRb.isChecked = true
+            binding.imageView3.setImageResource(R.drawable.baseline_person_male_24)
         }
     }
 

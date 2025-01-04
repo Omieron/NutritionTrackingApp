@@ -20,7 +20,7 @@ interface PersonDAO {
     fun deletePerson(person: Person):Int
 
     @Query("SELECT * FROM ${Constants.PERSON_TABLE} WHERE id =:id")
-    fun getPersonById(id:Int):Person
+    fun getPersonById(id:Int):Person?
 
     @Query("SELECT * FROM ${Constants.PERSON_TABLE} WHERE name LIKE :name")
     fun getPersonByName(name:String):MutableList<Person>

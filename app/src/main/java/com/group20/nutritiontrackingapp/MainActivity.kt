@@ -9,6 +9,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.UserHandle
 import android.text.Editable
 import android.text.TextWatcher
 import com.github.jinatonic.confetti.CommonConfetti
@@ -41,6 +42,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.math.max
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.ExerciseAdapterInterface {
 
@@ -60,6 +62,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     private lateinit var runnable: Runnable
     private var progress = 0
     private var maxProg = 0
+    private var caloricGoal = 2000
     private val PREFS_NAME = "ExercisePrefs"
     private val KEY_CALORIES_BURNED = "caloriesBurned"
     private val KEY_ACTIVE_MINUTES = "activeMinutes"
@@ -105,13 +108,9 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
                 .playOn(binding.animatedText)
         }
 
-        var caloricGoal = 2000;
-        val person = db.personDao().getPersonById(1000)
-        if (db.personDao().getPersonById(1000) !== null) {
-            caloricGoal = person.calorieGoal
-        }
-        binding.calorieText.text = "$maxProg / $caloricGoal kcal"
-        binding.calorieSeekBar.max = caloricGoal
+        prepareUSerData()
+
+        checkCalorieGoal()
 
         //Seekbar Logic
         binding.calorieSeekBar.isEnabled = false
@@ -265,6 +264,7 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         progress = 0
         setCaloriesForMeals(mealList)
         setMacroTypeForMeals(mealList)
+        checkCalorieGoal()
         handler.post(runnable)
     }
 
@@ -347,6 +347,8 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
             displayExercises(db.exerciseDao().getAllExercises())
         }
 
+
+
         bindingForDialog.addButton.setOnClickListener {
             selectedExercise?.let { exercise ->
                 exerciseTimeMinutes = 30
@@ -413,6 +415,22 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         bindingForDialog.searchExercise.setText("")
         selectedExercise = null
         customDialog.dismiss()
+    }
+
+    private fun prepareUSerData(){
+        if(db.personDao().getPersonById(1000) == null) {
+            val user = Person(1000, "Toprak Kayis", 22, 90.0, 187, 'M', 2500, 85.0)
+            db.personDao().insertPerson(user)
+        }
+    }
+
+    private fun checkCalorieGoal(){
+        val person = db.personDao().getPersonById(1000)
+            if (person != null) {
+                caloricGoal = person.calorieGoal
+        }
+        binding.calorieText.text = "$maxProg / $caloricGoal kcal"
+        binding.calorieSeekBar.max = caloricGoal
     }
 
     private fun prepareExerciseData() {
