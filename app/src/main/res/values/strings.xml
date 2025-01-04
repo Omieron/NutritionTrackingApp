@@ -3,6 +3,7 @@
     <string name="meal_search_text">Search meals…</string>
     <string name="add_meal_text">Add Meal</string>
     <string name="back_button_text">Back</string>
+    <string name="save_button_text">Save</string>
     <string name="suggested_recipes_text">Suggested Recipes :)</string>
     <string name="breakfast_text">Breakfast</string>
     <string name="lunch_text">Lunch</string>

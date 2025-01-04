@@ -26,7 +26,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="View Reports"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_report" />
+            android:src="@drawable/baseline_find_in_page_24" />
 
         <TextView
             android:id="@+id/currentDate"
@@ -48,7 +48,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Profile Settings"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_person" />
+            android:src="@drawable/baseline_person_24" />
     </LinearLayout>
 
     <ScrollView

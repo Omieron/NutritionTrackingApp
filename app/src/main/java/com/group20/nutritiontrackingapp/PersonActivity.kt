@@ -65,8 +65,14 @@ class PersonActivity : AppCompatActivity() {
                 HeightTv.setText(it.height.toString())
                 calGoalTv.setText(it.calorieGoal.toString())
                 proteinGoalTv.setText(it.proteinGoal.toString())
-                if (it.sex == 'F') femaleRb.isChecked = true
-                else MaleRb.isChecked = true
+                if (it.sex == 'F') {
+                    femaleRb.isChecked = true
+                    binding.imageView3.setImageResource(R.drawable.baseline_person_female_24)
+                }
+                else {
+                    MaleRb.isChecked = true
+                    binding.imageView3.setImageResource(R.drawable.baseline_person_male_24)
+                }
             }
         }
     }

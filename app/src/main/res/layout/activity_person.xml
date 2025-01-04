@@ -141,7 +141,7 @@
         android:layout_margin="16dp"
         android:backgroundTint="@color/Warm_Taupe_Brown"
         android:elevation="4dp"
-        android:text="@string/back_button_text"
+        android:text="@string/save_button_text"
         android:textColor="@color/Soft_Eggshell_White"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
