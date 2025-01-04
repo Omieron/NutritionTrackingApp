@@ -61,12 +61,13 @@ class PersonActivity : AppCompatActivity() {
         binding.backBtn.setOnClickListener {
             if (validateFields()) {
                 saveData()
+                Toast.makeText(this@PersonActivity, "The data is updating", Toast.LENGTH_SHORT).show()
+                lifecycleScope.launch {
+                    delay(1000) // 1 saniye bekleme
+                    finish() // Mevcut aktiviteyi kapatmak için
+                }
             }
-            Toast.makeText(this@PersonActivity, "The data is updating", Toast.LENGTH_SHORT).show()
-            lifecycleScope.launch {
-                delay(1000) // 1 saniye bekleme
-                finish() // Mevcut aktiviteyi kapatmak için
-            }
+
         }
 
     }
@@ -98,21 +99,36 @@ class PersonActivity : AppCompatActivity() {
             if (AgeTv.text.isBlank()) {
                 AgeTv.error = "Age required"
                 return false
+            } else if (AgeTv.text.toString().toIntOrNull() == null) {
+                AgeTv.error = "Age must be a number"
+                return false
             }
             if (WeightTv.text.isBlank()) {
                 WeightTv.error = "Weight required"
+                return false
+            } else if (WeightTv.text.toString().toDoubleOrNull() == null) {
+                WeightTv.error = "Weight must be a number"
                 return false
             }
             if (HeightTv.text.isBlank()) {
                 HeightTv.error = "Height required"
                 return false
+            } else if (HeightTv.text.toString().toIntOrNull() == null) {
+                HeightTv.error = "Height must be a number"
+                return false
             }
             if (calGoalTv.text.isBlank()) {
                 calGoalTv.error = "Calorie goal required"
                 return false
+            } else if (calGoalTv.text.toString().toIntOrNull() == null) {
+                calGoalTv.error = "Calorie goal must be a number"
+                return false
             }
             if (proteinGoalTv.text.isBlank()) {
                 proteinGoalTv.error = "Protein goal required"
+                return false
+            } else if (proteinGoalTv.text.toString().toDoubleOrNull() == null) {
+                proteinGoalTv.error = "Protein goal must be a number"
                 return false
             }
             if (!femaleRb.isChecked && !MaleRb.isChecked) {
