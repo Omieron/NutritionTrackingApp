@@ -495,7 +495,7 @@
                         android:layout_marginBottom="4dp"
                         android:text=""
                         android:textColor="@color/Deep_Mocha_Brown"
-                        android:textSize="8sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/activeMinutesText"
@@ -504,7 +504,7 @@
                         android:layout_marginBottom="8dp"
                         android:text=""
                         android:textColor="@color/Deep_Mocha_Brown"
-                        android:textSize="8sp" />
+                        android:textSize="12sp" />
 
                     <Button
                         android:id="@+id/addExerciseButton"
