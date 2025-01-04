@@ -135,6 +135,7 @@
         android:elevation="4dp"
         android:text="@string/save_button_text"
         android:textColor="@color/Soft_Eggshell_White"
+        app:cornerRadius="@dimen/cardview_default_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
