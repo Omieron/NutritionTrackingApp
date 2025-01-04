@@ -73,7 +73,9 @@ dependencies {
     implementation ("com.squareup.okhttp3:okhttp:4.10.0")
 
     //worker
-    implementation ("androidx.work:work-runtime-ktx:2.8.1")
+    val worker_version="2.8.1"
+    implementation ("androidx.work:work-runtime:$worker_version")
+    //implementation ("androidx.work:work-runtime-ktx:2.8.1")
 
     // External library for animation called  AndroidViewAnimations
     // https://radaso.com/blog/20-best-android-animation-ui-ux-libraries
