@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     private val KEY_LAST_EXERCISE_DATE = "lastExerciseDate"
     private lateinit var waterSound: MediaPlayer
     private lateinit var recipeService : RecipeService
+    private val MEAL_PREFS_NAME = "MealPrefs"
+    private val KEY_LAST_MEAL_DATE = "lastMealDate"
 
 
     // Database
@@ -87,11 +89,13 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-
         // Binding section
         bindingForDialog = ExerciseDialogBinding.inflate(layoutInflater)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        checkAndResetDailyValues()
+
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         adapter = RecipeCustomRecyclerViewAdapter(this, mutableListOf())
         binding.recipeRecyclerView.adapter = adapter
@@ -259,6 +263,9 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
 
     override fun onResume() {
         super.onResume()
+
+        checkAndResetDailyValues()
+
         val mealList = db.mealDao().getAllMeals()
         maxProg = getCalories(mealList)
         progress = 0
@@ -588,5 +595,36 @@ class MainActivity : AppCompatActivity(),ExerciseCustomRecyclerViewAdapter.Exerc
     // Create Toast Message
     private fun createToastMessage(str:String) {
         Toast.makeText(this@MainActivity, str, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun checkAndResetDailyValues() {
+        val prefs = getSharedPreferences(MEAL_PREFS_NAME, Context.MODE_PRIVATE)
+        val today = LocalDate.now().toString()
+        val lastDate = prefs.getString(KEY_LAST_MEAL_DATE, "") ?: ""
+
+        if (today != lastDate) {
+            // Reset seekbar progress
+            progress = 0
+            maxProg = 0
+            binding.calorieSeekBar.progress = 0
+            binding.calorieText.text = "0 / $caloricGoal kcal"
+
+            // Reset meal TextViews
+            binding.breakfastCalories.text = "0 kcal"
+            binding.lunchCalories.text = "0 kcal"
+            binding.dinnerCalories.text = "0 kcal"
+            binding.snackCalories.text = "0 kcal"
+
+            // Reset macro stats
+            binding.carbStats.text = "Carb: 0.00 g"
+            binding.proteinStats.text = "Protein: 0.00 g"
+            binding.fatStats.text = "Fat: 0.00 g"
+
+            // Clear all meals from the database for the previous day
+            db.mealDao().deleteAllMeals()
+
+            // Save the current date
+            prefs.edit().putString(KEY_LAST_MEAL_DATE, today).apply()
+        }
     }
 }
