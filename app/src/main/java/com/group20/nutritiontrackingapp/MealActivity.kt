@@ -1,6 +1,8 @@
 package com.group20.nutritiontrackingapp
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -43,8 +45,8 @@ class MealActivity : AppCompatActivity() {
         binding = ActivityMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //Setting title
-        var mealTitle: String = intent.getStringExtra("MEAL_TYPE").toString()
+        // Setting title
+        val mealTitle: String = intent.getStringExtra("MEAL_TYPE").toString()
         binding.tvTitle.text = mealTitle
 
         // Set up recycler view
@@ -56,33 +58,20 @@ class MealActivity : AppCompatActivity() {
 
         // Initialize Retrofit service
         mealService = ApiClient.getClient().create(MealService::class.java)
-        val request = mealService.getMeals()
-        request.enqueue(object : Callback<List<Meal>> {
-            override fun onFailure(call: Call<List<Meal>>, t: Throwable) {
-                Log.e("API_ERROR", "Failed to fetch meals", t)
-                Toast.makeText(applicationContext, t.message.toString(), Toast.LENGTH_LONG).show()
+        fetchMeals()
+
+        // Search box listener
+        binding.searchBox.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                mealAdapter.filter(s.toString())
             }
 
-            override fun onResponse(call: Call<List<Meal>>, response: Response<List<Meal>>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { meals ->
-                        mealList.clear()
-                        mealList.addAll(meals)
-                        displayMeals(mealList)
-                        Log.d("API_SUCCESS", "Fetched ${meals.size} meals")
-                    }
-                } else {
-                    Toast.makeText(
-                        applicationContext,
-                        "Error: ${response.code()}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
+            override fun afterTextChanged(s: Editable?) {}
         })
 
-        //Listeners
-        // Add button click listener
+        // Listeners
         binding.addMealButton.setOnClickListener {
             val selectedMeal = mealAdapter.getSelectedMeal()
             if (selectedMeal != null) {
@@ -93,7 +82,6 @@ class MealActivity : AppCompatActivity() {
                     "${selectedMeal.name} added",
                     Toast.LENGTH_SHORT
                 ).show()
-                // Return to main
                 finish()
             } else {
                 Toast.makeText(
@@ -109,7 +97,30 @@ class MealActivity : AppCompatActivity() {
         }
     }
 
-    fun displayMeals(meals: MutableList<Meal>) {
-        mealAdapter.setData(meals)
+    private fun fetchMeals() {
+        val request = mealService.getMeals()
+        request.enqueue(object : Callback<List<Meal>> {
+            override fun onFailure(call: Call<List<Meal>>, t: Throwable) {
+                Log.e("API_ERROR", "Failed to fetch meals", t)
+                Toast.makeText(applicationContext, t.message.toString(), Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<List<Meal>>, response: Response<List<Meal>>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { meals ->
+                        mealList.clear()
+                        mealList.addAll(meals)
+                        mealAdapter.setData(mealList) // İlk veriyi RecyclerView'a yansıt
+                        Log.d("API_SUCCESS", "Fetched ${meals.size} meals")
+                    }
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "Error: ${response.code()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        })
     }
 }

@@ -13,9 +13,13 @@ import com.group20.nutritiontrackingapp.db.Meal
 
 class MealCustomRecyclerViewAdapter(
     private val context: Context,
-    private var mealItems: MutableList<Meal>,
+    mealItems: MutableList<Meal>, // mealItems doğrudan constructor'dan alınır
     private val db: AppDatabase
 ) : RecyclerView.Adapter<MealCustomRecyclerViewAdapter.MealViewHolder>() {
+
+    // Tam listeyi ve güncel listeyi saklayan değişkenler
+    private val originalMealItems: MutableList<Meal> = ArrayList(mealItems)
+    private var mealItems: MutableList<Meal> = ArrayList(mealItems)
 
     private var selectedPosition = -1
     private var selectedMeal: Meal? = null
@@ -23,7 +27,12 @@ class MealCustomRecyclerViewAdapter(
     fun getSelectedMeal(): Meal? = selectedMeal
 
     fun setData(items: MutableList<Meal>) {
-        mealItems = items
+        originalMealItems.clear() // Tam listeyi güncelle
+        originalMealItems.addAll(items)
+
+        mealItems.clear() // Güncel listeyi güncelle
+        mealItems.addAll(items)
+
         notifyDataSetChanged()
     }
 
@@ -36,7 +45,6 @@ class MealCustomRecyclerViewAdapter(
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         val currentMeal = mealItems[position]
 
-        // Assign values
         holder.apply {
             mealName.text = currentMeal.name
             servingSize.text = "Serving : " + currentMeal.servingSize.toInt().toString()
@@ -46,16 +54,14 @@ class MealCustomRecyclerViewAdapter(
             fat.text = String.format("%.1fg", currentMeal.fat)
         }
 
-        // Change background based on selection
         holder.itemView.setBackgroundResource(
             if (position == selectedPosition) R.color.Pastel_Orange
             else R.color.Soft_Eggshell_White
         )
 
-        // When item is clicked, update selection
         holder.itemView.setOnClickListener {
             val newPosition = holder.adapterPosition
-            if (newPosition != RecyclerView.NO_POSITION) {  // Check if position is valid
+            if (newPosition != RecyclerView.NO_POSITION) {
                 val previousSelected = selectedPosition
                 selectedPosition = newPosition
                 selectedMeal = currentMeal
@@ -70,7 +76,22 @@ class MealCustomRecyclerViewAdapter(
                 ).show()
             }
         }
+    }
 
+    fun filter(searchText: String) {
+        val query = searchText.lowercase().trim()
+
+        if (query.isEmpty()) {
+            mealItems.clear()
+            mealItems.addAll(originalMealItems) // Tam listeyi geri yükle
+        } else {
+            val filteredList = originalMealItems.filter { meal ->
+                meal.name.lowercase().contains(query)}
+            mealItems.clear()
+            mealItems.addAll(filteredList)
+        }
+
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = mealItems.size
