@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Project</string>
+    <string name="app_name">nutriTrack</string>
     <string name="meal_search_text">Search meals…</string>
     <string name="add_meal_text">Add Meal</string>
     <string name="back_button_text">Back</string>
